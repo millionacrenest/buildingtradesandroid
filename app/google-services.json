@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "1040140611371",
+    "firebase_url": "https://building-trades-1891a.firebaseio.com",
+    "project_id": "building-trades-1891a",
+    "storage_bucket": "building-trades-1891a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040140611371:android:2bcc625f433cc31a",
+        "android_client_info": {
+          "package_name": "com.millionacrenest.laborpost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040140611371-sgt35pmgn3vua8ar8020d0b0fsjfrlsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl8P5BnifiBRMTLqEejyElWyjKIp-S_hk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040140611371:android:d3ad151373b1bd47",
+        "android_client_info": {
+          "package_name": "com.allisonmcentire.buildingtradesandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040140611371-rj5e10s6tf776qfmmj3jti79a7jmkoaq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allisonmcentire.buildingtradesandroid",
+            "certificate_hash": "3f05cb4233590c60d52499edf5c5547fb48b7adc"
+          }
+        },
+        {
+          "client_id": "1040140611371-sgt35pmgn3vua8ar8020d0b0fsjfrlsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl8P5BnifiBRMTLqEejyElWyjKIp-S_hk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040140611371-tbjsjopiichhcp8taaiv0n816v1nbcqf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "millionacrenest.BTrades"
+              }
+            },
+            {
+              "client_id": "1040140611371-sgt35pmgn3vua8ar8020d0b0fsjfrlsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
