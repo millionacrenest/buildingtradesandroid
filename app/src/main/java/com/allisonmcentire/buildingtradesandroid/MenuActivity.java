@@ -14,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -23,6 +25,7 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +87,7 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             startActivity(new Intent(MenuActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_gallery) {
+            startActivity(new Intent(MenuActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
 
