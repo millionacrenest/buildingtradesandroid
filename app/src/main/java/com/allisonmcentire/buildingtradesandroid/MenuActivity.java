@@ -44,6 +44,8 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
@@ -90,6 +92,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(MenuActivity.this, MainActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
+            startActivity(new Intent(MenuActivity.this, FrontpageActivity.class));
 
         } else if (id == R.id.nav_manage) {
 
