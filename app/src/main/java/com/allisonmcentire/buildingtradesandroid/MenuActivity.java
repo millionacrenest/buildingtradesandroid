@@ -95,6 +95,7 @@ public class MenuActivity extends AppCompatActivity
             startActivity(new Intent(MenuActivity.this, FrontpageActivity.class));
 
         } else if (id == R.id.nav_manage) {
+            startActivity(new Intent(MenuActivity.this, UserActivity.class));
 
         } else if (id == R.id.nav_share) {
 

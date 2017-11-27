@@ -24,4 +24,17 @@
     <string name="heading_my_posts">My Posts</string>
     <string name="heading_my_top_posts">My Top Posts</string>
     <string name="post_image">Post Image</string>
+    <string name="quickstart_message">Click the SUBSCRIBE button below to receive push notification messages from SeattleBuildingTrades.com.</string>
+    <string name="subscribe_to_news">Subscribe</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed!</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
 </resources>

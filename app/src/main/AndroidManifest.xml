@@ -78,9 +78,10 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SignInActivity" />
         <activity android:name=".PostDetailActivity" />
-        <activity android:name=".FrontpageActivity"></activity>
+        <activity android:name=".FrontpageActivity" />
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>
