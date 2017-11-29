@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -79,9 +80,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 for (DataSnapshot s : dataSnapshot.getChildren()){
                     UserInformation user = s.getValue(UserInformation.class);
                     LatLng location=new LatLng(user.latitude,user.longitude);
-                    mMap.addMarker(new MarkerOptions().position(location).title(user.name)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    String sitekey = s.getKey();
+                    mMap.addMarker(new MarkerOptions().position(location).title(sitekey)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
                 }
             }
+
+
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -112,6 +118,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        return false;
+        Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_SHORT).show();// display toast
+        return true;
+
     }
 }

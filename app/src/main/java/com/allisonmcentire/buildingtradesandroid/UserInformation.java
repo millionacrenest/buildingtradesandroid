@@ -11,6 +11,7 @@ public class UserInformation {
     public double latitude;
     public double longitude;
 
+
     public UserInformation(){
 
     }
@@ -18,6 +19,7 @@ public class UserInformation {
         this.name=name;
         this.latitude=latitude;
         this.longitude=longitude;
+
     }
 
 }
