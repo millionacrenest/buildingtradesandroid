@@ -38,7 +38,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseMessaging.getInstance().subscribeToTopic("all");
-        FirebaseMessaging.getInstance().subscribeToTopic("fall");
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -52,7 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
                 // Click action
-                Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
+                Intent intent = new Intent(MapsActivity.this, Map2Activity.class);
                 startActivity(intent);
             }
         });
@@ -81,7 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     UserInformation user = s.getValue(UserInformation.class);
                     LatLng location=new LatLng(user.latitude,user.longitude);
                     String sitekey = s.getKey();
-                    mMap.addMarker(new MarkerOptions().position(location).title(sitekey)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    mMap.addMarker(new MarkerOptions().position(location).title(user.name).snippet(sitekey)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
                 }
             }
 
@@ -118,7 +117,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_SHORT).show();// display toast
+        startActivity(new Intent(MapsActivity.this, MapDetailActivity.class));
+        //Toast.makeText(MapsActivity.this, marker.getSnippet(), Toast.LENGTH_SHORT).show();// display toast
+        Intent intent = new Intent(this, MapDetailActivity.class);
+        intent.putExtra("EXTRA_POST_KEY", marker.getSnippet());
+        startActivity(intent);
+
+
         return true;
 
     }

@@ -2,10 +2,14 @@ package com.allisonmcentire.buildingtradesandroid;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 
@@ -19,18 +23,32 @@ import ly.img.android.ui.utilities.PermissionRequest;
 
 public class CameraActivity extends PESDKActivity implements PermissionRequest.Response {
 
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageReference = storage.getReferenceFromUrl("gs://building-trades-1891a.appspot.com").child("images");
+
     public static int CAMERA_PREVIEW_RESULT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_camera);
+
+        final File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "address");
+
+        if (!f.exists()) {
+
+            boolean rv = f.mkdir();
+
+        } else {
+
+        }
+
 
         SettingsList settingsList = new SettingsList();
         settingsList
                 // Set custom camera export settings
                 .getSettingsModel(CameraSettings.class)
-               // .setExportDir(Directory.DCIM, FOLDER)
+              // .setExportDir(Directory.DCIM, FOLDER)
                 .setExportPrefix("camera_")
                 // Set custom editor export settings
                 .getSettingsModel(EditorSaveSettings.class)
@@ -43,16 +61,18 @@ public class CameraActivity extends PESDKActivity implements PermissionRequest.R
         new CameraPreviewBuilder(this)
                 .setSettingsList(settingsList)
                 .startActivityForResult(this, CAMERA_PREVIEW_RESULT);
+
+
     }
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
 //        if (resultCode == RESULT_OK && requestCode == CAMERA_PREVIEW_RESULT) {
-//            String resultPath =
-//                    data.getStringExtra(ImgLyActivity.RESULT_IMAGE_PATH);
-//            String sourcePath =
-//                    data.getStringExtra(ImgLyActivity.SOURCE_IMAGE_PATH);
+////            String resultPath =
+////                    data.getStringExtra(ImgLyActivity.RESULT_IMAGE_PATH);
+////            String sourcePath =
+////                    data.getStringExtra(ImgLyActivity.SOURCE_IMAGE_PATH);
 //
 //            if (resultPath != null) {
 //                // Scan result file

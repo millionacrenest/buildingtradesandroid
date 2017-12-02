@@ -24,7 +24,7 @@ public class FrontpageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_frontpage);
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -55,13 +55,13 @@ public class FrontpageActivity extends BaseActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        // Button launches NewPostActivity
-        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(FrontpageActivity.this, CameraActivity.class));
-            }
-        });
+//        // Button launches NewPostActivity
+//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(FrontpageActivity.this, CameraActivity.class));
+//            }
+//        });
 
 
     }
