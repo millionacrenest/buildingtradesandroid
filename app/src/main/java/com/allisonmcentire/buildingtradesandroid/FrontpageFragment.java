@@ -17,6 +17,7 @@ public class FrontpageFragment extends PostListFragment {
     public FrontpageFragment() {}
 
 
+
     public Query getQuery(DatabaseReference databaseReference) {
         // [START recent_posts_query]
         // Last 100 posts, these are automatically the 100 most recent

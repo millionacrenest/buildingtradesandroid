@@ -105,7 +105,7 @@ public class MenuActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        } else if (id != R.id.nav_slideshow) ;
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

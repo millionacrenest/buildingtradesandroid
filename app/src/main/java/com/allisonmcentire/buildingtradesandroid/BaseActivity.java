@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * Created by allisonmcentire on 11/26/17.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppBaseActivity {
 
     private ProgressDialog mProgressDialog;
 
@@ -33,6 +33,8 @@ public class BaseActivity extends AppCompatActivity {
     public String getUid() {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
+
+
 
 
 
