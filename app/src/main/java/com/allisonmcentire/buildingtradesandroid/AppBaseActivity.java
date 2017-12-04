@@ -112,6 +112,18 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
             case R.id.nav_slideshow:
                 startActivity(new Intent(AppBaseActivity.this, FrontpageActivity.class));
                 break;
+            case R.id.nav_manage:
+                startActivity(new Intent(AppBaseActivity.this, UserActivity.class));
+                break;
+            case R.id.nav_share:
+                startActivity(new Intent(AppBaseActivity.this, ContactsActivity.class));
+                break;
+            case R.id.nav_send:
+                startActivity(new Intent(AppBaseActivity.this, ResourceActivity.class));
+                break;
+            case R.id.nav_video:
+                startActivity(new Intent(AppBaseActivity.this, VideoActivity.class));
+                break;
         }
         return false;
     }

@@ -1,6 +1,5 @@
 package com.allisonmcentire.buildingtradesandroid;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,28 +9,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class FrontpageActivity extends BaseActivity {
+public class ContactsActivity extends BaseActivity {
 
-    private static final String TAG = "FrontpageActivity";
+    private static final String TAG = "ContactsActivity";
 
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_frontpage);
+        setContentView(R.layout.activity_contacts);
+
 
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new FrontpageFragment(),
+                    new ContactsFragment(),
 
             };
             private final String[] mFragmentNames = new String[] {
@@ -56,16 +52,6 @@ public class FrontpageActivity extends BaseActivity {
         mViewPager.setAdapter(mPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-//        // Button launches NewPostActivity
-//        findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(FrontpageActivity.this, CameraActivity.class));
-//            }
-//        });
-
-
     }
 
     @Override
@@ -86,5 +72,6 @@ public class FrontpageActivity extends BaseActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
 
 }
