@@ -23,6 +23,7 @@ public class Post {
     public String nothing;
     public String field_document_file;
     public String field_media_video_embed_field;
+    public String name;
     public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
 
@@ -30,7 +31,7 @@ public class Post {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Post(String uid, String author, String title, String body, String field_media_image, String field_image, String nothing, String field_document_file, String field_media_video_embed_field) {
+    public Post(String uid, String author, String title, String body, String field_media_image, String field_image, String nothing, String field_document_file, String field_media_video_embed_field, String name) {
         this.uid = uid;
         this.author = author;
         this.title = title;
@@ -40,6 +41,7 @@ public class Post {
         this.nothing = nothing;
         this.field_document_file = field_document_file;
         this.field_media_video_embed_field = field_media_video_embed_field;
+        this.name = name;
     }
 
     // [START post_to_map]
@@ -57,6 +59,7 @@ public class Post {
         result.put("starCount", starCount);
         result.put("stars", stars);
         result.put("post_photo", field_image);
+        result.put("post_name", name);
 
         return result;
     }

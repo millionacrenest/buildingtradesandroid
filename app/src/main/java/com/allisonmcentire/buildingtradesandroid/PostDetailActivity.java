@@ -151,11 +151,11 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user information
                         User user = dataSnapshot.getValue(User.class);
-                        String authorName = user.field_full_name;
+                     //   String authorName = user.field_full_name;
 
                         // Create new comment object
                         String commentText = mCommentField.getText().toString();
-                        Comment comment = new Comment(uid, authorName, commentText);
+                        Comment comment = new Comment(commentText);
 
                         // Push the comment, it will appear in the list
                         mCommentsReference.push().setValue(comment);
@@ -297,7 +297,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(CommentViewHolder holder, int position) {
             Comment comment = mComments.get(position);
-            holder.authorView.setText(comment.author);
+          //  holder.authorView.setText(comment.author);
             holder.bodyView.setText(comment.text);
         }
 

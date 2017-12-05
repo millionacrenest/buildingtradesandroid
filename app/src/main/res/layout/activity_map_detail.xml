@@ -7,58 +7,69 @@
     tools:context="com.allisonmcentire.buildingtradesandroid.MapDetailActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/ic_menu_gallery" />
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--app:srcCompat="@drawable/ic_menu_gallery" />-->
 
     <TextView
         android:id="@+id/post_title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentStart="true"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="115dp" />
 
-    <LinearLayout
-        android:id="@+id/comment_form2"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/post_body2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_alignStart="@+id/post_title2"
         android:layout_below="@+id/post_title2"
-        android:layout_marginTop="20dp"
-        android:weightSum="1.0">
+        android:layout_marginTop="49dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="115dp" />
 
-        <EditText
-            android:id="@+id/field_comment_text2"
-            android:layout_width="0dp"
-            android:layout_weight="0.8"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:hint="Write a comment..."/>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/comment_form2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_below="@+id/post_title2"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:weightSum="1.0">-->
 
-        <Button
-            android:id="@+id/button_post_comment2"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
-            android:layout_weight="0.2"
-            android:layout_height="wrap_content"
-            android:text="Post"/>
+        <!--<EditText-->
+            <!--android:id="@+id/field_comment_text2"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="0.8"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:maxLines="1"-->
+            <!--android:hint="Write a comment..."/>-->
 
-    </LinearLayout>
+        <!--<Button-->
+            <!--android:id="@+id/button_post_comment2"-->
+            <!--style="@style/Base.Widget.AppCompat.Button.Borderless"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="0.2"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Post"/>-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_comments2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/comment_form2"
-        tools:listitem="@layout/item_comment" />
+    <!--</LinearLayout>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recycler_comments2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/comment_form2"-->
+        <!--tools:listitem="@layout/item_comment" />-->
 
 </RelativeLayout>

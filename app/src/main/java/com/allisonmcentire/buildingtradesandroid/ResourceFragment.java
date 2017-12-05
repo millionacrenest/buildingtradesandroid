@@ -7,7 +7,7 @@ import com.google.firebase.database.Query;
  * Created by allisonmcentire on 12/3/17.
  */
 
-public class ResourceFragment extends PostListFragment  {
+public class ResourceFragment extends ResourceListFragment  {
 
     public ResourceFragment() {}
 

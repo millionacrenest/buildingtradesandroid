@@ -35,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 import java.util.Locale;
 
-public class Map2Activity extends BaseActivity {
+public class Map2Activity extends BaseActivity implements View.OnClickListener{
     private Button fab;
     TextView location;
     Button getLocation;
@@ -53,15 +53,15 @@ public class Map2Activity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCam);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Click action
-                Intent intent = new Intent(Map2Activity.this, CameraActivity.class);
-                startActivity(intent);
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCam);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                // Click action
+//                Intent intent = new Intent(Map2Activity.this, CameraActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         // Initialize Database
         mSiteReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations");
@@ -72,9 +72,11 @@ public class Map2Activity extends BaseActivity {
         mSiteField=(EditText)findViewById(R.id.field_location_text2);
         mSiteTextButton=(Button)findViewById(R.id.button_post_site2);
         mSiteName=(EditText)findViewById(R.id.field_location_name);
-        mImageUrl=(TextView)findViewById(R.id.textViewImageURL);
+       // mImageUrl=(TextView)findViewById(R.id.textViewImageURL);
 
-      //  mSiteTextButton.setOnClickListener(this);
+
+
+        mSiteTextButton.setOnClickListener(this);
         getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,81 +96,83 @@ public class Map2Activity extends BaseActivity {
         });
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        // Add value event listener to the post
-//        // [START post_value_event_listener]
-//        ValueEventListener siteListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Get Post object and use the values to update the UI
-//                UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
-//                // [START_EXCLUDE]
-//                mSiteName.setText(userInformation.name);
-//                mSiteField.setText(userInformation.locationNotes);
-//                mImageUrl.setText(userInformation.image);
-//                latitude = tracker.getLatitude();
-//                longitude = tracker.getLongitude();
-//
-//
-//                // [END_EXCLUDE]
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//                // [START_EXCLUDE]
-//                Toast.makeText(Map2Activity.this, "Failed to load post.",
-//                        Toast.LENGTH_SHORT).show();
-//                // [END_EXCLUDE]
-//            }
-//        };
-//        mSiteReference.addValueEventListener(siteListener);
-//        // [END post_value_event_listener]
-//
-//        // Keep copy of post listener so we can remove it when app stops
-//        mSiteListener = siteListener;
-//
-//
-//    }
-//
-//    public void onClick(View v) {
-//        int i = v.getId();
-//        if (i == R.id.button_post_site2) {
-//            postSite();
-//        }
-//    }
-//
-//
-//    private void postSite() {
-//       // final String uid = getUid();
-//        FirebaseDatabase.getInstance().getReference().child("nodeLocations")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        // Get user information
-//                        UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
-//                        String name = userInformation.name;
-//                        String uid = userInformation.UID;
-//                        // Create new comment object
-//                        String locationNotes = mSiteField.getText().toString();
-//                        Double latitude = tracker.getLatitude();
-//                        Double longitude = tracker.getLatitude();
-//                        String image = mImageUrl.getText().toString();
-//                        userInformation = new UserInformation(uid,name,latitude,longitude,locationNotes,image);
-//
-//                        // Push the comment, it will appear in the list
-//                        mSiteReference.push().setValue(userInformation);
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Add value event listener to the post
+        // [START post_value_event_listener]
+        ValueEventListener siteListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
+                // [START_EXCLUDE]
+                //mSiteName.setText(userInformation.name);
+               // mSiteField.setText(userInformation.locationNotes);
+              //  mImageUrl.setText(userInformation.image);
+              //  latitude = tracker.getLatitude();
+              //  longitude = tracker.getLongitude();
+
+
+                // [END_EXCLUDE]
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                // [START_EXCLUDE]
+                Toast.makeText(Map2Activity.this, "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+                // [END_EXCLUDE]
+            }
+        };
+        mSiteReference.addValueEventListener(siteListener);
+        // [END post_value_event_listener]
+
+        // Keep copy of post listener so we can remove it when app stops
+        mSiteListener = siteListener;
+
+
+    }
+
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.button_post_site2) {
+            postSite();
+
+        }
+    }
+
+
+    private void postSite() {
+        final String uid = getUid();
+        FirebaseDatabase.getInstance().getReference().child("nodeLocations")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user information
+                        UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
+                        String name = mSiteName.getText().toString();
+
+                        // Create new comment object
+                        String locationNotes = mSiteField.getText().toString();
+
+                        //String image = mImageUrl.getText().toString();
+                        userInformation = new UserInformation(uid,name,latitude,longitude,locationNotes);
+
+                        // Push the comment, it will appear in the list
+                        mSiteReference.push().setValue(userInformation);
+                       // display toast
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+    }
 }
 

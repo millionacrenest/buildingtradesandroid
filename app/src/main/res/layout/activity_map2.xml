@@ -9,8 +9,10 @@
         android:id="@+id/getlocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="getLocation"
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="103dp"
+        android:layout_marginTop="37dp"
+        android:text="getLocation" />
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
@@ -21,49 +23,49 @@
         android:id="@+id/field_location_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/field_location_text2"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/location"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="14dp"
         android:layout_weight="0.8"
         android:hint="Location name..."
         android:maxLines="1" />
+
     <EditText
         android:id="@+id/field_location_text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/field_location_name"
-        android:layout_marginTop="60dp"
+        android:layout_alignEnd="@+id/field_location_name"
+        android:layout_centerVertical="true"
         android:layout_weight="0.8"
         android:hint="Location notes..."
         android:maxLines="1" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabCam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/field_location_text2"
-        android:layout_marginTop="27dp"
-        android:layout_toEndOf="@+id/location"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:rotation="0"
-        android:src="@drawable/ic_menu_camera" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fabCam"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:clickable="true"-->
+        <!--android:rotation="0"-->
+        <!--android:src="@drawable/ic_menu_camera" />-->
 
-    <TextView
-        android:id="@+id/textViewImageURL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fabCam"
-        android:layout_toEndOf="@+id/location"
-        android:text="Image URL" />
+    <!--<TextView-->
+        <!--android:id="@+id/textViewImageURL"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_below="@+id/fabCam"-->
+        <!--android:text="Image URL" />-->
     <Button
         android:id="@+id/button_post_site2"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/field_location_text2"
+        android:layout_marginTop="27dp"
         android:layout_weight="0.2"
         android:text="Save" />
 

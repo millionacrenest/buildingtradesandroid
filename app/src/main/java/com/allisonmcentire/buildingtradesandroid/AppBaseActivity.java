@@ -124,6 +124,12 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
             case R.id.nav_video:
                 startActivity(new Intent(AppBaseActivity.this, VideoActivity.class));
                 break;
+            case R.id.nav_facebook:
+                startActivity(new Intent(AppBaseActivity.this, FacebookActivity.class));
+                break;
+            case R.id.nav_website:
+                startActivity(new Intent(AppBaseActivity.this, WebsiteActivity.class));
+                break;
         }
         return false;
     }

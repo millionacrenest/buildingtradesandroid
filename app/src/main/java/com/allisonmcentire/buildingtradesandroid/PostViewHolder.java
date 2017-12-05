@@ -6,10 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by allisonmcentire on 11/26/17.
@@ -23,7 +26,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     public TextView bodyView;
     public ImageView imageView;
     public TextView pdfLink;
-    public TextView videoLink;
+    public TextView pdfName;
+
 
 
 
@@ -35,7 +39,9 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         bodyView = itemView.findViewById(R.id.post_body);
         imageView = (ImageView) itemView.findViewById(R.id.post_photo);
         pdfLink = itemView.findViewById(R.id.post_link);
-        videoLink = itemView.findViewById(R.id.post_video_link);
+        pdfName = itemView.findViewById(R.id.post_name);
+
+
 
     }
 
@@ -43,10 +49,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         titleView.setText(post.title);
         authorView.setText(post.author);
         bodyView.setText(post.body);
+        pdfName.setText(post.name);
+
 
         Picasso.with(itemView.getContext()).load(post.field_image).into(imageView);
         pdfLink.setText(post.field_document_file);
-        videoLink.setText(post.field_media_video_embed_field);
+
 
 
     }

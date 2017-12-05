@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     UserInformation user = s.getValue(UserInformation.class);
                     LatLng location = new LatLng(user.latitude, user.longitude);
                     String sitekey = s.getKey();
-                    mMap.addMarker(new MarkerOptions().position(location).title(user.name).snippet(sitekey)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    mMap.addMarker(new MarkerOptions().position(location).title(user.name).snippet(sitekey)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                 }
             }
 
@@ -138,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         startActivity(new Intent(MapsActivity.this, MapDetailActivity.class));
-        //Toast.makeText(MapsActivity.this, marker.getSnippet(), Toast.LENGTH_SHORT).show();// display toast
+        Toast.makeText(MapsActivity.this, marker.getSnippet(), Toast.LENGTH_SHORT).show();// display toast
         Intent intent = new Intent(this, MapDetailActivity.class);
         intent.putExtra("EXTRA_POST_KEY", marker.getSnippet());
         startActivity(intent);

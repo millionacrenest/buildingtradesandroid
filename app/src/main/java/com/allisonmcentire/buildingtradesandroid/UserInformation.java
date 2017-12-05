@@ -11,19 +11,19 @@ public class UserInformation {
     public String name;
     public double latitude;
     public double longitude;
-    public String image;
+  //  public String image;
     public String locationNotes;
 
 
     public UserInformation(){
 
     }
-    public UserInformation(String UID,String name,double latitude,double longitude,String image,String locationNotes){
+    public UserInformation(String UID,String name,double latitude,double longitude, String locationNotes){
         this.UID=UID;
         this.name=name;
         this.latitude=latitude;
         this.longitude=longitude;
-        this.image=image;
+      //  this.image=image;
         this.locationNotes=locationNotes;
 
     }

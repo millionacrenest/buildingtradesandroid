@@ -1,10 +1,10 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by allisonmcentire on 11/26/17.
@@ -31,7 +31,10 @@ public class BaseActivity extends AppBaseActivity {
     }
 
     public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        return String.valueOf(currentFirebaseUser.getUid());
     }
 
 
