@@ -105,9 +105,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
             case R.id.nav_camera:
                 startActivity(new Intent(AppBaseActivity.this, MapsActivity.class));
                 break;
-            case R.id.nav_gallery:
-                startActivity(new Intent(AppBaseActivity.this, MainActivity.class));
-                break;
+//            case R.id.nav_gallery:
+//                startActivity(new Intent(AppBaseActivity.this, MainActivity.class));
+//                break;
             // and so on...
             case R.id.nav_slideshow:
                 startActivity(new Intent(AppBaseActivity.this, FrontpageActivity.class));
@@ -121,9 +121,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
             case R.id.nav_send:
                 startActivity(new Intent(AppBaseActivity.this, ResourceActivity.class));
                 break;
-            case R.id.nav_video:
-                startActivity(new Intent(AppBaseActivity.this, VideoActivity.class));
-                break;
+//            case R.id.nav_video:
+//                startActivity(new Intent(AppBaseActivity.this, VideoActivity.class));
+//                break;
             case R.id.nav_facebook:
                 startActivity(new Intent(AppBaseActivity.this, FacebookActivity.class));
                 break;

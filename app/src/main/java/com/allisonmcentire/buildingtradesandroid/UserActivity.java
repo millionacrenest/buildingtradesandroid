@@ -2,6 +2,7 @@ package com.allisonmcentire.buildingtradesandroid;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends BaseActivity {
 
     private static final String TAG = "UserActivity";
 
@@ -70,12 +72,10 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get token
-                String token = FirebaseInstanceId.getInstance().getToken();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(UserActivity.this, SignInActivity.class));
+                finish();
 
-                // Log and toast
-                String msg = getString(R.string.msg_token_fmt, token);
-                Log.d(TAG, msg);
-                Toast.makeText(UserActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
     }

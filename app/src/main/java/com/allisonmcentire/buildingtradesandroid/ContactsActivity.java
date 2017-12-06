@@ -31,7 +31,7 @@ public class ContactsActivity extends BaseActivity {
 
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_frontpage)
+                    getString(R.string.heading_contacts)
             };
             @Override
             public Fragment getItem(int position) {

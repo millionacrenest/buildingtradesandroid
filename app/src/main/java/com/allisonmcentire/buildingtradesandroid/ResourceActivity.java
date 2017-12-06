@@ -33,7 +33,7 @@ public class ResourceActivity extends BaseActivity {
 
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_frontpage)
+                    getString(R.string.heading_resources)
             };
             @Override
             public Fragment getItem(int position) {

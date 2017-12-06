@@ -5,7 +5,13 @@ import android.os.Bundle;
 
 import ly.img.android.PESDK;
 
-public class PESDKActivity extends AppCompatActivity {
 
+public class PESDKActivity extends android.app.Application {
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        PESDK.init(this);
+    }
 }

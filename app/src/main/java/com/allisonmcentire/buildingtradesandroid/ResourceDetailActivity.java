@@ -59,8 +59,7 @@ public class ResourceDetailActivity extends BaseActivity {
         // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
                 .child("resources").child(mPostKey);
-        Toast.makeText(ResourceDetailActivity.this, pdfURL,
-                Toast.LENGTH_SHORT).show();
+
 
         // Initialize Views
 //
@@ -94,6 +93,8 @@ public class ResourceDetailActivity extends BaseActivity {
 
                 mWebView.loadUrl(pdfURL);
                 // [END_EXCLUDE]
+                Toast.makeText(ResourceDetailActivity.this, pdfURL,
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override

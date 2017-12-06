@@ -33,7 +33,7 @@ public abstract class ResourceListFragment extends Fragment {
     private DatabaseReference mDatabase;
     // [END define_database_reference]
 
-    private FirebaseRecyclerAdapter<Post, PostViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<Resource, ResourceViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
 
@@ -43,13 +43,13 @@ public abstract class ResourceListFragment extends Fragment {
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_all_posts, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_resources, container, false);
 
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
-        mRecycler = rootView.findViewById(R.id.messages_list);
+        mRecycler = rootView.findViewById(R.id.resources_list);
         mRecycler.setHasFixedSize(true);
 
         return rootView;
@@ -68,20 +68,20 @@ public abstract class ResourceListFragment extends Fragment {
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Post>()
-                .setQuery(postsQuery, Post.class)
+        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Resource>()
+                .setQuery(postsQuery, Resource.class)
                 .build();
 
-        mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(options) {
+        mAdapter = new FirebaseRecyclerAdapter<Resource, ResourceViewHolder>(options) {
 
             @Override
-            public PostViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            public ResourceViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                return new PostViewHolder(inflater.inflate(R.layout.item_post, viewGroup, false));
+                return new ResourceViewHolder(inflater.inflate(R.layout.item_resource, viewGroup, false));
             }
 
             @Override
-            protected void onBindViewHolder(PostViewHolder viewHolder, int position, final Post model) {
+            protected void onBindViewHolder(ResourceViewHolder viewHolder, int position, final Resource model) {
                 final DatabaseReference postRef = getRef(position);
 
                 // Set click listener for the whole post view
@@ -100,18 +100,18 @@ public abstract class ResourceListFragment extends Fragment {
 
 
 //                // Bind Post to ViewHolder, setting OnClickListener for the star button
-//                viewHolder.bindToPost(model, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View starView) {
-//                        // Need to write to both places the post is stored
-//                        DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
-//                        DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
-//
+                viewHolder.bindToPost(model, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View starView) {
+                        // Need to write to both places the post is stored
+                        DatabaseReference globalPostRef = mDatabase.child("resources").child(postRef.getKey());
+                       // DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
+
 //                        // Run two transactions
 //                        onStarClicked(globalPostRef);
 //                        onStarClicked(userPostRef);
-//                    }
-//                });
+                    }
+                });
             }
         };
         mRecycler.setAdapter(mAdapter);
@@ -170,9 +170,9 @@ public abstract class ResourceListFragment extends Fragment {
     }
 
 
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
+//    public String getUid() {
+//        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+//    }
 
     public abstract Query getQuery(DatabaseReference databaseReference);
 

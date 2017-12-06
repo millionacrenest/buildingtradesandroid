@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.MediaController;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -26,6 +27,9 @@ public class VideoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        MediaController mediaController = new MediaController(this);
+
+
         // Create the adapter that will return a fragment for each section
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
@@ -33,7 +37,7 @@ public class VideoActivity extends BaseActivity {
 
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_frontpage)
+                    getString(R.string.heading_videos)
             };
             @Override
             public Fragment getItem(int position) {

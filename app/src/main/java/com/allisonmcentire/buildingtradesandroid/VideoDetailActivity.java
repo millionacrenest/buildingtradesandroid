@@ -1,6 +1,7 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,9 +32,9 @@ import java.util.List;
  * Created by allisonmcentire on 12/3/17.
  */
 
-public class VideoDetailActivity extends BaseActivity implements View.OnClickListener{
+public class VideoDetailActivity extends BaseActivity {
 
-    private static final String TAG = "PostDetailActivity";
+    private static final String TAG = "VideoDetailActivity";
 
     public static final String EXTRA_POST_KEY = "post_key";
 
@@ -37,8 +42,8 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private ValueEventListener mPostListener;
     private String mPostKey;
 
-    private TextView mTitleView;
-    private TextView mBodyView;
+
+    private WebView mYoutTubeView;
 
 
 
@@ -60,8 +65,9 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
         // Initialize Views
 
-        mTitleView = findViewById(R.id.post_title);
-        mBodyView = findViewById(R.id.post_body);
+
+        mYoutTubeView = findViewById(R.id.myWebViewer3);
+
 
 
     }
@@ -78,9 +84,9 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 // Get Post object and use the values to update the UI
                 Post post = dataSnapshot.getValue(Post.class);
                 // [START_EXCLUDE]
-
-                mTitleView.setText(post.title);
-                mBodyView.setText(post.body);
+                mYoutTubeView.loadUrl(post.field_media_video_embed_field);
+//                Uri vidLink = Uri.parse(post.field_media_video_embed_field);
+                //mYoutTubeView.loadUrl(post.field_media_video_embed_field);
                 // [END_EXCLUDE]
             }
 
@@ -119,13 +125,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.button_post_comment) {
 
-        }
-    }
 
 
 

@@ -1,6 +1,7 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -81,11 +84,12 @@ public abstract class VideoListFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(VideoViewHolder viewHolder, int position, final Post model) {
+            protected void onBindViewHolder(final VideoViewHolder viewHolder, int position, final Post model) {
                 final DatabaseReference postRef = getRef(position);
 
                 // Set click listener for the whole post view
                 final String postKey = postRef.getKey();
+
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -93,24 +97,16 @@ public abstract class VideoListFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
                         intent.putExtra(VideoDetailActivity.EXTRA_POST_KEY, postKey);
                         startActivity(intent);
+
+
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(viewHolder.videoLink));
+//                        startActivity(intent);
                     }
                 });
 
 
 
-                // Bind Post to ViewHolder, setting OnClickListener for the star button
-                viewHolder.bindToPost(model, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View starView) {
-                        // Need to write to both places the post is stored
-                        DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
-                        DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
 
-                        // Run two transactions
-                        onStarClicked(globalPostRef);
-                        onStarClicked(userPostRef);
-                    }
-                });
             }
         };
         mRecycler.setAdapter(mAdapter);

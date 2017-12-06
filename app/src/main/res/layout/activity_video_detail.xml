@@ -7,46 +7,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".PostDetailActivity">
-
-    <include
-        android:id="@+id/post_author_layout"
-        layout="@layout/include_post_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" />
-
-    <include
-        android:id="@+id/post_text_layout"
-        layout="@layout/include_post_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/post_author_layout"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp" />
-
-    <LinearLayout
-        android:id="@+id/comment_form"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/post_text_layout"
-        android:layout_marginTop="20dp"
-        android:weightSum="1.0">
-
-        <VideoView
-            android:id="@+id/myVideo"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerInParent="true" />
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_comments"
+    tools:context=".VideoDetailActivity">
+    <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/comment_form"
-        tools:listitem="@layout/item_comment" />
+        android:id="@+id/myWebViewer3">
+
+    </WebView>
+
 
 </RelativeLayout>

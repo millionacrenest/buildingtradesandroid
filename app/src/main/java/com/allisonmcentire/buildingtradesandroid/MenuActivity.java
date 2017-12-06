@@ -46,8 +46,8 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().getItem(0).setChecked(true);
-        navigationView.setCheckedItem(R.id.nav_camera);
+//        navigationView.getMenu().getItem(0).setChecked(true);
+//        navigationView.setCheckedItem(R.id.nav_camera);
 
     }
 
@@ -90,22 +90,22 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
-        if (id == R.id.nav_camera) {
-            startActivity(new Intent(MenuActivity.this, MapsActivity.class));
-        } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(MenuActivity.this, MainActivity.class));
+//        if (id == R.id.nav_camera) {
+//            startActivity(new Intent(MenuActivity.this, MapsActivity.class));
+////        } else if (id == R.id.nav_gallery) {
+//            startActivity(new Intent(MenuActivity.this, MainActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
-            startActivity(new Intent(MenuActivity.this, FrontpageActivity.class));
-
-        } else if (id == R.id.nav_manage) {
-            startActivity(new Intent(MenuActivity.this, UserActivity.class));
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//        } else if (id == R.id.nav_slideshow) {
+//            startActivity(new Intent(MenuActivity.this, FrontpageActivity.class));
+//
+//        } else if (id == R.id.nav_manage) {
+//            startActivity(new Intent(MenuActivity.this, UserActivity.class));
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
