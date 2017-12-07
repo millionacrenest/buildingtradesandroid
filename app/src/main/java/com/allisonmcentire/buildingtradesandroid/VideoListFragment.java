@@ -36,7 +36,7 @@ public abstract class VideoListFragment extends Fragment {
     private DatabaseReference mDatabase;
     // [END define_database_reference]
 
-    private FirebaseRecyclerAdapter<Post, VideoViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<Video, VideoViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
 
@@ -46,13 +46,13 @@ public abstract class VideoListFragment extends Fragment {
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_all_posts, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
 
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
-        mRecycler = rootView.findViewById(R.id.messages_list);
+        mRecycler = rootView.findViewById(R.id.videos_list);
         mRecycler.setHasFixedSize(true);
 
         return rootView;
@@ -69,33 +69,33 @@ public abstract class VideoListFragment extends Fragment {
         mRecycler.setLayoutManager(mManager);
 
         // Set up FirebaseRecyclerAdapter with the Query
-        Query postsQuery = getQuery(mDatabase);
+        Query videosQuery = getQuery(mDatabase);
 
-        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Post>()
-                .setQuery(postsQuery, Post.class)
+        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Video>()
+                .setQuery(videosQuery, Video.class)
                 .build();
 
-        mAdapter = new FirebaseRecyclerAdapter<Post, VideoViewHolder>(options) {
+        mAdapter = new FirebaseRecyclerAdapter<Video, VideoViewHolder>(options) {
 
             @Override
             public VideoViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                return new VideoViewHolder(inflater.inflate(R.layout.item_post, viewGroup, false));
+                return new VideoViewHolder(inflater.inflate(R.layout.item_videos, viewGroup, false));
             }
 
             @Override
-            protected void onBindViewHolder(final VideoViewHolder viewHolder, int position, final Post model) {
-                final DatabaseReference postRef = getRef(position);
+            protected void onBindViewHolder(final VideoViewHolder viewHolder, int position, final Video model) {
+                final DatabaseReference videoRef = getRef(position);
 
                 // Set click listener for the whole post view
-                final String postKey = postRef.getKey();
+                final String videoKey = videoRef.getKey();
 
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
                         Intent intent = new Intent(getActivity(), VideoDetailActivity.class);
-                        intent.putExtra(VideoDetailActivity.EXTRA_POST_KEY, postKey);
+                        intent.putExtra(VideoDetailActivity.EXTRA_POST_KEY, videoKey);
                         startActivity(intent);
 
 
@@ -104,7 +104,19 @@ public abstract class VideoListFragment extends Fragment {
                     }
                 });
 
+                // Bind Post to ViewHolder, setting OnClickListener for the star button
+                viewHolder.bindToPost(model, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View starView) {
+                        // Need to write to both places the post is stored
+                        DatabaseReference globalPostRef = mDatabase.child("video").child(videoRef.getKey());
+                        // DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
 
+//                        // Run two transactions
+//                        onStarClicked(globalPostRef);
+//                        onStarClicked(userPostRef);
+                    }
+                });
 
 
             }
@@ -113,38 +125,38 @@ public abstract class VideoListFragment extends Fragment {
     }
 
     // [START post_stars_transaction]
-    private void onStarClicked(DatabaseReference postRef) {
-        postRef.runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                Post p = mutableData.getValue(Post.class);
-                if (p == null) {
-                    return Transaction.success(mutableData);
-                }
-
-                if (p.stars.containsKey(getUid())) {
-                    // Unstar the post and remove self from stars
-                    p.starCount = p.starCount - 1;
-                    p.stars.remove(getUid());
-                } else {
-                    // Star the post and add self to stars
-                    p.starCount = p.starCount + 1;
-                    p.stars.put(getUid(), true);
-                }
-
-                // Set value and report transaction success
-                mutableData.setValue(p);
-                return Transaction.success(mutableData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b,
-                                   DataSnapshot dataSnapshot) {
-                // Transaction completed
-                Log.d(TAG, "postTransaction:onComplete:" + databaseError);
-            }
-        });
-    }
+//    private void onStarClicked(DatabaseReference videoRef) {
+//        videoRef.runTransaction(new Transaction.Handler() {
+//            @Override
+//            public Transaction.Result doTransaction(MutableData mutableData) {
+//                Post p = mutableData.getValue(Post.class);
+//                if (p == null) {
+//                    return Transaction.success(mutableData);
+//                }
+//
+//                if (p.stars.containsKey(getUid())) {
+//                    // Unstar the post and remove self from stars
+//                    p.starCount = p.starCount - 1;
+//                    p.stars.remove(getUid());
+//                } else {
+//                    // Star the post and add self to stars
+//                    p.starCount = p.starCount + 1;
+//                    p.stars.put(getUid(), true);
+//                }
+//
+//                // Set value and report transaction success
+//                mutableData.setValue(p);
+//                return Transaction.success(mutableData);
+//            }
+//
+//            @Override
+//            public void onComplete(DatabaseError databaseError, boolean b,
+//                                   DataSnapshot dataSnapshot) {
+//                // Transaction completed
+//                Log.d(TAG, "postTransaction:onComplete:" + databaseError);
+//            }
+//        });
+//    }
     // [END post_stars_transaction]
 
 
@@ -165,9 +177,9 @@ public abstract class VideoListFragment extends Fragment {
     }
 
 
-    public String getUid() {
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
+  //  public String getUid() {
+//        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+//    }
 
     public abstract Query getQuery(DatabaseReference databaseReference);
 

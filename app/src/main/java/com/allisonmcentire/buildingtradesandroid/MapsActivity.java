@@ -147,7 +147,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Lo
     @Override
     public boolean onMarkerClick(Marker marker) {
         startActivity(new Intent(MapsActivity.this, MapDetailActivity.class));
-        Toast.makeText(MapsActivity.this, marker.getSnippet(), Toast.LENGTH_SHORT).show();// display toast
+       // Toast.makeText(MapsActivity.this, marker.getSnippet(), Toast.LENGTH_SHORT).show();// display toast
         Intent intent = new Intent(this, MapDetailActivity.class);
         intent.putExtra("EXTRA_POST_KEY", marker.getSnippet());
         startActivity(intent);

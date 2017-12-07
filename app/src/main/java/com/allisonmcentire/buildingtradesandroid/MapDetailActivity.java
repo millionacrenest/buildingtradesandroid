@@ -36,23 +36,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapDetailActivity extends BaseActivity  {
+public class MapDetailActivity extends BaseActivity implements View.OnClickListener{
 
-    private static final String TAG = "tag";
+    private static final String TAG = "MapDetailActivity";
     public static final String EXTRA_POST_KEY = "EXTRA_POST_KEY";
     private DatabaseReference mMapReference;
     private ValueEventListener mMapListener;
-   // private DatabaseReference mCommentsReference;
+    private DatabaseReference mCommentsReference;
     private String mMapKey;
  //   private CommentAdapter mMapCommentAdapter;
 
     private TextView mTitleView;
     private TextView mBodyView;
-//    private EditText mCommentField;
-//    private Button mCommentButton;
-//    private RecyclerView mCommentsRecycler;
-  //  private ImageView mImageView;
-  //  private String imgURL;
+    private EditText mCommentField;
+    private Button mCommentButton;
+   // private RecyclerView mCommentsRecycler;
+    private ImageView mImageView;
+    private String imgURL;
     Context context=this;
 
     @Override
@@ -61,7 +61,7 @@ public class MapDetailActivity extends BaseActivity  {
         setContentView(R.layout.activity_map_detail);
 
         Intent intent = getIntent();
-        final String sitekey = intent.getStringExtra("EXTRA_POST_KEY");
+        final String sitekey = intent.getStringExtra(EXTRA_POST_KEY);
 
         // Get post key from intent
         mMapKey = sitekey;
@@ -73,18 +73,18 @@ public class MapDetailActivity extends BaseActivity  {
         mMapReference = FirebaseDatabase.getInstance().getReference()
                 .child("nodeLocations").child(mMapKey);
 
-     //   mCommentsReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations").child(mMapKey);
+        mCommentsReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations").child(mMapKey);
 
         mTitleView = findViewById(R.id.post_title2);
         mBodyView = findViewById(R.id.post_body2);
 
-     //   mImageView = findViewById(R.id.imageView2);
-//        mCommentField = findViewById(R.id.field_comment_text2);
-//        mCommentButton = findViewById(R.id.button_post_comment2);
-//        mCommentsRecycler = findViewById(R.id.recycler_comments2);
+        mImageView = findViewById(R.id.imageView2);
+       mCommentField = findViewById(R.id.field_comment_text2);
+       mCommentButton = findViewById(R.id.button_post_comment2);
+     //   mCommentsRecycler = findViewById(R.id.recycler_comments2);
 //
-//        mCommentButton.setOnClickListener(this);
-//        mCommentsRecycler.setLayoutManager(new LinearLayoutManager(this));
+       mCommentButton.setOnClickListener(this);
+    //   mCommentsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
 
 
@@ -109,13 +109,13 @@ public class MapDetailActivity extends BaseActivity  {
                 mTitleView.setText(userInformation.name);
                 mBodyView.setText(userInformation.locationNotes);
 
-               // imgURL = userInformation.image;
+                imgURL = userInformation.mapImage;
 
-//
-//                Picasso.with(context)
-//                        .load(imgURL)
-//                        .placeholder(R.mipmap.ic_launcher)
-//                        .into(mImageView);
+
+                Picasso.with(context)
+                        .load(imgURL)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .into(mImageView);
 
 
 
@@ -124,28 +124,13 @@ public class MapDetailActivity extends BaseActivity  {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // [START_EXCLUDE]
+                Toast.makeText(MapDetailActivity.this, "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+                // [END_EXCLUDE]
             }
-
-            // @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//                // [START_EXCLUDE]
-//                Toast.makeText(MapDetailActivity.this, "Failed to load post.",
-//                        Toast.LENGTH_SHORT).show();
-//                // [END_EXCLUDE]
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                // Getting Post failed, log a message
-//                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-//                // [START_EXCLUDE]
-//                Toast.makeText(MapDetailActivity.this, "Failed to load post.",
-//                        Toast.LENGTH_SHORT).show();
-//                // [END_EXCLUDE]
-//            }
         };
         mMapReference.addValueEventListener(mapListener);
         // [END post_value_event_listener]
@@ -153,9 +138,9 @@ public class MapDetailActivity extends BaseActivity  {
         // Keep copy of post listener so we can remove it when app stops
         mMapListener = mapListener;
 
-//        // Listen for comments
-//        mMapCommentAdapter = new MapDetailActivity.CommentAdapter(this, mCommentsReference);
-//        mCommentsRecycler.setAdapter(mMapCommentAdapter);
+////        // Listen for comments
+     //  mMapCommentAdapter = new MapDetailActivity.CommentAdapter(this, mCommentsReference);
+    //    mCommentsRecycler.setAdapter(mMapCommentAdapter);
 
 
     }
@@ -171,49 +156,50 @@ public class MapDetailActivity extends BaseActivity  {
         }
 
 //        // Clean up comments listener
-//        mMapCommentAdapter.cleanupListener();
+      //
+        // mMapCommentAdapter.cleanupListener();
 
 
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        int i = v.getId();
-//        if (i == R.id.button_post_comment2) {
-//            postComment();
-//        }
-//    }
-//
-//    private void postComment() {
-//        final String uid = getUid();
-//
-//
-//        FirebaseDatabase.getInstance().getReference().child("users").child(uid)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        // Get user information
-//                        User user = dataSnapshot.getValue(User.class);
-//                       // String authorName = user.field_full_name;
-//
-//                        // Create new comment object
-//                        String commentText = mCommentField.getText().toString();
-//                        Comment comment = new Comment(commentText);
-//
-//                        // Push the comment, it will appear in the list
-//                        mCommentsReference.push().setValue(comment);
-//
-//                        // Clear the field
-//                        mCommentField.setText(null);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//    }
-//
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.button_post_comment2) {
+            postComment();
+        }
+    }
+
+    private void postComment() {
+       // final String uid = getUid();
+
+
+        FirebaseDatabase.getInstance().getReference().child("nodeLocations").child(mMapKey)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user information
+                       // UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
+                       // String authorName = user.field_full_name;
+
+                        // Create new comment object
+                        String commentText = mCommentField.getText().toString();
+                        Comment comment = new Comment(commentText);
+
+                        // Push the comment, it will appear in the list
+                        mCommentsReference.push().setValue(comment);
+
+                        // Clear the field
+                       // mCommentField.setText(null);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
 //    private static class CommentViewHolder extends RecyclerView.ViewHolder {
 //
 //       // public TextView authorView;
@@ -306,7 +292,7 @@ public class MapDetailActivity extends BaseActivity  {
 //
 //                @Override
 //                public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-//                    Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+//                  //  Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
 //
 //                    // A comment has changed position, use the key to determine if we are
 //                    // displaying this comment and if so move it.
@@ -318,7 +304,7 @@ public class MapDetailActivity extends BaseActivity  {
 //
 //                @Override
 //                public void onCancelled(DatabaseError databaseError) {
-//                    Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+//                  //  Log.w(TAG, "postComments:onCancelled", databaseError.toException());
 //                    Toast.makeText(mContext, "Failed to load comments.",
 //                            Toast.LENGTH_SHORT).show();
 //                }

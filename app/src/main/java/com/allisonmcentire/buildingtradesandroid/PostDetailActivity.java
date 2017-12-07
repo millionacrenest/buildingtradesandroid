@@ -144,8 +144,8 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void postComment() {
-        final String uid = getUid();
-        FirebaseDatabase.getInstance().getReference().child("users").child(uid)
+       // final String uid = getUid();
+        FirebaseDatabase.getInstance().getReference().child("users")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -173,13 +173,13 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
     private static class CommentViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView authorView;
+        //public TextView authorView;
         public TextView bodyView;
 
         public CommentViewHolder(View itemView) {
             super(itemView);
 
-            authorView = itemView.findViewById(R.id.comment_author);
+            //authorView = itemView.findViewById(R.id.comment_author);
             bodyView = itemView.findViewById(R.id.comment_body);
         }
     }

@@ -19,7 +19,8 @@ import com.squareup.picasso.Picasso;
 
 public class Map2Activity extends BaseActivity implements View.OnClickListener{
     private Button fab;
-    TextView location;
+    TextView locLatitude;
+    TextView locLongitude;
     Button getLocation;
     EditText mSiteField;
     EditText mSiteName;
@@ -53,7 +54,8 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
         mSiteReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations");
 
 
-        location=(TextView)findViewById(R.id.location);
+        locLatitude=(TextView)findViewById(R.id.location);
+        locLongitude=(TextView)findViewById(R.id.location2);
         getLocation=(Button)findViewById(R.id.getlocation);
         mSiteField=(EditText)findViewById(R.id.field_location_text2);
         mSiteTextButton=(Button)findViewById(R.id.button_post_site2);
@@ -73,7 +75,8 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
                 if (tracker.isLocationEnabled) {
                     latitude = tracker.getLatitude();
                     longitude = tracker.getLongitude();
-                    location.setText("Your Location is Latitude= " + latitude + " Longitude= " + longitude);
+                    locLatitude.setText(String.valueOf(latitude));
+                    locLongitude.setText(String.valueOf(longitude));
 
                 } else {
                     // show dialog box to user to enable location
@@ -149,15 +152,17 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
                         String locationNotes = mSiteField.getText().toString();
                         String nothing = "SBT";
 
-                        String image = mImageLink.getText().toString();
+                        String mapImage = mImageLink.getText().toString();
+
+                        Double latitude = Double.parseDouble(locLatitude.getText().toString());
+                        Double longitude = Double.parseDouble(locLongitude.getText().toString());
 
 
 
 
 
-
-                        //String image = mImageUrl.getText().toString();
-                        userInformation = new UserInformation(name,latitude,longitude,locationNotes,nothing,image);
+                                //String image = mImageUrl.getText().toString();
+                        userInformation = new UserInformation(name,latitude,longitude,locationNotes,nothing,mapImage);
 
                         // Push the comment, it will appear in the list
                         mSiteReference.push().setValue(userInformation);

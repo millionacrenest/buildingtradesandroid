@@ -23,7 +23,7 @@ public class VideoViewHolder extends RecyclerView.ViewHolder {
 
    // public String videoLink;
   //  public VideoView myVideoP;
-    public TextView videoLink;
+    public TextView videoName;
    // private YouTubePlayerView mYouTube;
 
 
@@ -31,19 +31,19 @@ public class VideoViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
 //        myVideoP = (VideoView) itemView.findViewById(R.id.myVideo);
-        videoLink = (TextView) itemView.findViewById(R.id.post_video_link);
+        videoName = (TextView) itemView.findViewById(R.id.video_name);
        // mYouTube = (YouTubePlayerView) itemView.findViewById(R.id.player);
 
 
 
     }
 
-    public void bindToPost(Post post, View.OnClickListener starClickListener) {
+    public void bindToPost(Video video, View.OnClickListener starClickListener) {
 
 
 
 
-       videoLink.setText(post.field_media_video_embed_field);
+       videoName.setText(video.name);
 
 
 

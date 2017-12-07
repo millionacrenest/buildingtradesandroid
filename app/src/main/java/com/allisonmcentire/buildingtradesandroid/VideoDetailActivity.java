@@ -41,6 +41,7 @@ public class VideoDetailActivity extends BaseActivity {
     private DatabaseReference mPostReference;
     private ValueEventListener mPostListener;
     private String mPostKey;
+    private String mVideoLink;
 
 
     private WebView mYoutTubeView;
@@ -50,7 +51,7 @@ public class VideoDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_detail);
+        setContentView(R.layout.activity_video_detail);
 
         // Get post key from intent
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
@@ -82,9 +83,9 @@ public class VideoDetailActivity extends BaseActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                Post post = dataSnapshot.getValue(Post.class);
+                Video video = dataSnapshot.getValue(Video.class);
                 // [START_EXCLUDE]
-                mYoutTubeView.loadUrl(post.field_media_video_embed_field);
+
 //                Uri vidLink = Uri.parse(post.field_media_video_embed_field);
                 //mYoutTubeView.loadUrl(post.field_media_video_embed_field);
                 // [END_EXCLUDE]
