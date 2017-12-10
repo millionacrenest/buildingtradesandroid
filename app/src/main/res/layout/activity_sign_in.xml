@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:src="@drawable/ic_menu_send" />
+        android:src="@mipmap/ic_launcher_icon" />
 
     <LinearLayout
         android:id="@+id/layout_email_password"
@@ -62,12 +62,6 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_in" />
 
-
-        <Button
-            android:id="@+id/button_sign_up"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_up" />
 
     </LinearLayout>
 

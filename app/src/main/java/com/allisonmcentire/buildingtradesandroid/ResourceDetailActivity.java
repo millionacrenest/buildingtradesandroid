@@ -1,6 +1,9 @@
 package com.allisonmcentire.buildingtradesandroid;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.barteksc.pdfviewer.PDFView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +49,8 @@ public class ResourceDetailActivity extends BaseActivity {
 //    private TextView mTitleView;
 //    private TextView mPDFLink;
     private String pdfURL;
-    private WebView mWebView;
+//    private WebView mWebView;
+    private PDFView mPDFView;
 
 
     @Override
@@ -56,17 +64,19 @@ public class ResourceDetailActivity extends BaseActivity {
             throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
         }
 
-        // Initialize Database
+//        // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
                 .child("resources").child(mPostKey);
 
-
-        // Initialize Views
+        mPDFView = findViewById(R.id.pdfViewHere);
 //
-//        mTitleView = findViewById(R.id.post_name);
-//        mPDFLink = findViewById(R.id.post_link);
-
-        mWebView = findViewById(R.id.myWebViewer);
+//
+//        // Initialize Views
+////
+////        mTitleView = findViewById(R.id.post_name);
+////        mPDFLink = findViewById(R.id.post_link);
+//
+//        mWebView = findViewById(R.id.myWebViewer);
 
 
 
@@ -86,14 +96,35 @@ public class ResourceDetailActivity extends BaseActivity {
                 // Get Post object and use the values to update the UI
                 Post post = dataSnapshot.getValue(Post.class);
                 // [START_EXCLUDE]
-
+                Uri uri = Uri.parse(post.field_document_file);
 //                mTitleView.setText(post.name);
 //                mPDFLink.setText(post.field_document_file);
-                pdfURL = ("http://docs.google.com/gview?embedded=true&url="+post.field_document_file);
+               // pdfURL = ("http://docs.google.com/gview?embedded=true&url="+post.field_document_file);
+             //  mPDFView.fromUri(uri);
 
-                mWebView.loadUrl(pdfURL);
+
+
+
+
+                Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
+                pdfIntent.setDataAndType(uri, "application/pdf");
+                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                try{
+                    startActivity(pdfIntent);
+                }catch(ActivityNotFoundException e){
+                    Toast.makeText(ResourceDetailActivity.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+
+
+            //    mWebView.loadUrl(pdfURL);
                 // [END_EXCLUDE]
-                Toast.makeText(ResourceDetailActivity.this, pdfURL,
+                Toast.makeText(ResourceDetailActivity.this, uri.toString(),
                         Toast.LENGTH_SHORT).show();
             }
 
@@ -131,6 +162,12 @@ public class ResourceDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(new Intent(ResourceDetailActivity.this, ResourceActivity.class));
+    }
 
 
 

@@ -52,7 +52,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Lo
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         ChildEventListener mChildEventListener;
-        mUsers = FirebaseDatabase.getInstance().getReference("nodeLocations");
+        mUsers = FirebaseDatabase.getInstance().getReference("nodeLocations/SeattleBT");
 
         mUsers.push().setValue(marker);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -155,5 +155,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Lo
 
         return true;
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(new Intent(MapsActivity.this, FrontpageActivity.class));
     }
 }

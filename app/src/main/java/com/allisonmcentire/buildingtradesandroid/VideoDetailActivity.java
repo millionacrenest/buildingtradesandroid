@@ -1,6 +1,8 @@
 package com.allisonmcentire.buildingtradesandroid;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,7 +46,7 @@ public class VideoDetailActivity extends BaseActivity {
     private String mVideoLink;
 
 
-    private WebView mYoutTubeView;
+   // private WebView mYoutTubeView;
 
 
 
@@ -61,13 +63,13 @@ public class VideoDetailActivity extends BaseActivity {
 
         // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
-                .child("videos").child(mPostKey);
+                .child("video").child(mPostKey);
 
 
         // Initialize Views
 
 
-        mYoutTubeView = findViewById(R.id.myWebViewer3);
+     //   mYoutTubeView = findViewById(R.id.myWebViewer3);
 
 
 
@@ -86,9 +88,28 @@ public class VideoDetailActivity extends BaseActivity {
                 Video video = dataSnapshot.getValue(Video.class);
                 // [START_EXCLUDE]
 
-//                Uri vidLink = Uri.parse(post.field_media_video_embed_field);
+             //   Uri vidLink = Uri.parse(video.field_media_video_embed_field);
                 //mYoutTubeView.loadUrl(post.field_media_video_embed_field);
+//
+//                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(video.field_media_video_embed_field));
+//               // Intent webIntent = new Intent(Intent.ACTION_VIEW,
+//                       // Uri.parse(video.field_media_video_embed_field));
+//                startActivity(appIntent);
+
+               //  startActivity(webIntent);
+
                 // [END_EXCLUDE]
+
+                Uri uri = Uri.parse(video.field_media_video_embed_field);
+                Intent videoIntent = new Intent(Intent.ACTION_VIEW);
+                videoIntent.setData(uri);
+                videoIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                try{
+                    startActivity(videoIntent);
+                }catch(ActivityNotFoundException e){
+                    Toast.makeText(VideoDetailActivity.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -128,7 +149,12 @@ public class VideoDetailActivity extends BaseActivity {
 
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
+
+    }
 
 
 

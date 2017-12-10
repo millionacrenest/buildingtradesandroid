@@ -5,12 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.allisonmcentire.buildingtradesandroid.ResourceDetailActivity">
-<WebView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/myWebViewer">
 
-</WebView>
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfViewHere"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+<!--<WebView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:id="@+id/myWebViewer">-->
+
+<!--</WebView>-->
 
     <!--<ImageView-->
     <!--android:id="@+id/imageView2"-->

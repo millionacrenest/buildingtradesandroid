@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_menu_send" />
+        android:src="@mipmap/ic_launcher_icon" />
 
     <TextView
         android:id="@+id/informationTextView"

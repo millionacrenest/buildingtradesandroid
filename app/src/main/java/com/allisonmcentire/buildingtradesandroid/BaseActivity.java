@@ -5,12 +5,14 @@ import android.net.Uri;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by allisonmcentire on 11/26/17.
@@ -19,9 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 public class BaseActivity extends AppBaseActivity {
 
     private ProgressDialog mProgressDialog;
-    private DatabaseReference mUsers;
     public String mTag;
     private static FirebaseDatabase mDatabase;
+    public String uid;
+
+
+
+
+
 
 
     public static FirebaseDatabase getDatabase() {
@@ -53,6 +60,7 @@ public class BaseActivity extends AppBaseActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = null;
+
         if (user != null) {
             // Name, email address, and profile photo Url
 //            String name = user.getDisplayName();
@@ -66,53 +74,11 @@ public class BaseActivity extends AppBaseActivity {
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getToken() instead.
             uid = user.getUid();
+
         }
         return uid;
+
+
     }
-
-//    public String getTag() {
-//        mUsers = FirebaseDatabase.getInstance().getReference("users");
-//
-//
-//
-//
-//
-//        Query query = mUsers.orderByChild("field_uid").equalTo(getUid());
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    // dataSnapshot is the "issue" node with all children with id 0
-//                    for (DataSnapshot s : dataSnapshot.getChildren()) {
-//                        // do something with the individual "issues"
-//                        User user = s.getValue(User.class);
-//                        mTag = user.nothing;
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//        return mTag;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    }
-
-
-
-
 
 }

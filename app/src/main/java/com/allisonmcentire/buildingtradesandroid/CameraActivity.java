@@ -179,6 +179,13 @@ public class CameraActivity extends Activity implements PermissionRequest.Respon
 
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+      //  startActivity(new Intent(CameraActivity.this, Map2Activity.class));
+    }
 }
 
 //    FirebaseStorage storage = FirebaseStorage.getInstance();

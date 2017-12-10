@@ -109,7 +109,7 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
                 mTitleView.setText(userInformation.name);
                 mBodyView.setText(userInformation.locationNotes);
 
-                imgURL = userInformation.mapImage;
+                imgURL = userInformation.image;
 
 
                 Picasso.with(context)
@@ -170,6 +170,13 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(new Intent(MapDetailActivity.this, MapsActivity.class));
+    }
+
     private void postComment() {
        // final String uid = getUid();
 
@@ -183,8 +190,8 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
                        // String authorName = user.field_full_name;
 
                         // Create new comment object
-                        String commentText = mCommentField.getText().toString();
-                        Comment comment = new Comment(commentText);
+                        String text = mCommentField.getText().toString();
+                        Comment comment = new Comment(text);
 
                         // Push the comment, it will appear in the list
                         mCommentsReference.push().setValue(comment);
@@ -200,148 +207,150 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
-//    private static class CommentViewHolder extends RecyclerView.ViewHolder {
-//
-//       // public TextView authorView;
-//        public TextView bodyView;
-//
-//        public CommentViewHolder(View itemView) {
-//            super(itemView);
-//
-//          //  authorView = itemView.findViewById(R.id.comment_author);
-//            bodyView = itemView.findViewById(R.id.comment_body);
-//        }
-//    }
-//
-//    private static class CommentAdapter extends RecyclerView.Adapter<MapDetailActivity.CommentViewHolder> {
-//
-//        private Context mContext;
-//        private DatabaseReference mDatabaseReference;
-//        private ChildEventListener mChildEventListener;
-//
-//        private List<String> mCommentIds = new ArrayList<>();
-//        private List<Comment> mComments = new ArrayList<>();
-//
-//        public CommentAdapter(final Context context, DatabaseReference ref) {
-//            mContext = context;
-//            mDatabaseReference = ref;
-//
-//            // Create child event listener
-//            // [START child_event_listener_recycler]
-//            ChildEventListener childEventListener = new ChildEventListener() {
-//                @Override
-//                public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-//                    Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-//
-//                    // A new comment has been added, add it to the displayed list
-//                    Comment comment = dataSnapshot.getValue(Comment.class);
-//
-//                    // [START_EXCLUDE]
-//                    // Update RecyclerView
-//                    mCommentIds.add(dataSnapshot.getKey());
-//                    mComments.add(comment);
-//                    notifyItemInserted(mComments.size() - 1);
-//                    // [END_EXCLUDE]
-//                }
-//
-//                @Override
-//                public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-//                    Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-//
-//                    // A comment has changed, use the key to determine if we are displaying this
-//                    // comment and if so displayed the changed comment.
-//                    Comment newComment = dataSnapshot.getValue(Comment.class);
-//                    String commentKey = dataSnapshot.getKey();
-//
-//                    // [START_EXCLUDE]
-//                    int commentIndex = mCommentIds.indexOf(commentKey);
-//                    if (commentIndex > -1) {
-//                        // Replace with the new data
-//                        mComments.set(commentIndex, newComment);
-//
-//                        // Update the RecyclerView
-//                        notifyItemChanged(commentIndex);
-//                    } else {
-//                        Log.w(TAG, "onChildChanged:unknown_child:" + commentKey);
-//                    }
-//                    // [END_EXCLUDE]
-//                }
-//
-//                @Override
-//                public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                    Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-//
-//                    // A comment has changed, use the key to determine if we are displaying this
-//                    // comment and if so remove it.
-//                    String commentKey = dataSnapshot.getKey();
-//
-//                    // [START_EXCLUDE]
-//                    int commentIndex = mCommentIds.indexOf(commentKey);
-//                    if (commentIndex > -1) {
-//                        // Remove data from the list
-//                        mCommentIds.remove(commentIndex);
-//                        mComments.remove(commentIndex);
-//
-//                        // Update the RecyclerView
-//                        notifyItemRemoved(commentIndex);
-//                    } else {
-//                        Log.w(TAG, "onChildRemoved:unknown_child:" + commentKey);
-//                    }
-//                    // [END_EXCLUDE]
-//                }
-//
-//                @Override
-//                public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-//                  //  Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
-//
-//                    // A comment has changed position, use the key to determine if we are
-//                    // displaying this comment and if so move it.
-//                    Comment movedComment = dataSnapshot.getValue(Comment.class);
-//                    String commentKey = dataSnapshot.getKey();
-//
-//                    // ...
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//                  //  Log.w(TAG, "postComments:onCancelled", databaseError.toException());
-//                    Toast.makeText(mContext, "Failed to load comments.",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//            };
-//            ref.addChildEventListener(childEventListener);
-//            // [END child_event_listener_recycler]
-//
-//            // Store reference to listener so it can be removed on app stop
-//            mChildEventListener = childEventListener;
-//        }
-//
-//        @Override
-//        public MapDetailActivity.CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            LayoutInflater inflater = LayoutInflater.from(mContext);
-//            View view = inflater.inflate(R.layout.item_comment, parent, false);
-//            return new MapDetailActivity.CommentViewHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(MapDetailActivity.CommentViewHolder holder, int position) {
-//            Comment comment = mComments.get(position);
-//           // holder.authorView.setText(comment.author);
-//            holder.bodyView.setText(comment.text);
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return mComments.size();
-//        }
-//
-//        public void cleanupListener() {
-//            if (mChildEventListener != null) {
-//                mDatabaseReference.removeEventListener(mChildEventListener);
-//            }
-//        }
-//
-//    }
+    private static class CommentViewHolder extends RecyclerView.ViewHolder {
+
+       // public TextView authorView;
+        public TextView bodyView;
+
+        public CommentViewHolder(View itemView) {
+            super(itemView);
+
+          //  authorView = itemView.findViewById(R.id.comment_author);
+            bodyView = itemView.findViewById(R.id.comment_body);
+        }
+    }
+
+    private static class CommentAdapter extends RecyclerView.Adapter<MapDetailActivity.CommentViewHolder> {
+
+        private Context mContext;
+        private DatabaseReference mDatabaseReference;
+        private ChildEventListener mChildEventListener;
+
+        private List<String> mCommentIds = new ArrayList<>();
+        private List<Comment> mComments = new ArrayList<>();
+
+        public CommentAdapter(final Context context, DatabaseReference ref) {
+            mContext = context;
+            mDatabaseReference = ref;
+
+            // Create child event listener
+            // [START child_event_listener_recycler]
+            ChildEventListener childEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                    Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
+
+                    // A new comment has been added, add it to the displayed list
+                    Comment comment = dataSnapshot.getValue(Comment.class);
+
+                    // [START_EXCLUDE]
+                    // Update RecyclerView
+                    mCommentIds.add(dataSnapshot.getKey());
+                    mComments.add(comment);
+                    notifyItemInserted(mComments.size() - 1);
+                    // [END_EXCLUDE]
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+                    Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
+
+                    // A comment has changed, use the key to determine if we are displaying this
+                    // comment and if so displayed the changed comment.
+                    Comment newComment = dataSnapshot.getValue(Comment.class);
+                    String commentKey = dataSnapshot.getKey();
+
+                    // [START_EXCLUDE]
+                    int commentIndex = mCommentIds.indexOf(commentKey);
+                    if (commentIndex > -1) {
+                        // Replace with the new data
+                        mComments.set(commentIndex, newComment);
+
+                        // Update the RecyclerView
+                        notifyItemChanged(commentIndex);
+                    } else {
+                        Log.w(TAG, "onChildChanged:unknown_child:" + commentKey);
+                    }
+                    // [END_EXCLUDE]
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
+
+                    // A comment has changed, use the key to determine if we are displaying this
+                    // comment and if so remove it.
+                    String commentKey = dataSnapshot.getKey();
+
+                    // [START_EXCLUDE]
+                    int commentIndex = mCommentIds.indexOf(commentKey);
+                    if (commentIndex > -1) {
+                        // Remove data from the list
+                        mCommentIds.remove(commentIndex);
+                        mComments.remove(commentIndex);
+
+                        // Update the RecyclerView
+                        notifyItemRemoved(commentIndex);
+                    } else {
+                        Log.w(TAG, "onChildRemoved:unknown_child:" + commentKey);
+                    }
+                    // [END_EXCLUDE]
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+                  //  Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+
+                    // A comment has changed position, use the key to determine if we are
+                    // displaying this comment and if so move it.
+                    Comment movedComment = dataSnapshot.getValue(Comment.class);
+                    String commentKey = dataSnapshot.getKey();
+
+                    // ...
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                  //  Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+                    Toast.makeText(mContext, "Failed to load comments.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            };
+            ref.addChildEventListener(childEventListener);
+            // [END child_event_listener_recycler]
+
+            // Store reference to listener so it can be removed on app stop
+            mChildEventListener = childEventListener;
+        }
+
+        @Override
+        public MapDetailActivity.CommentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View view = inflater.inflate(R.layout.item_comment, parent, false);
+            return new MapDetailActivity.CommentViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MapDetailActivity.CommentViewHolder holder, int position) {
+            Comment comment = mComments.get(position);
+           // holder.authorView.setText(comment.author);
+            holder.bodyView.setText(comment.text);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mComments.size();
+        }
+
+        public void cleanupListener() {
+            if (mChildEventListener != null) {
+                mDatabaseReference.removeEventListener(mChildEventListener);
+            }
+        }
+
+    }
+
+
 
 
 }

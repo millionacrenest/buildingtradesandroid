@@ -1,6 +1,7 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -314,8 +315,13 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
     }
 
-
-
+//
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//
+//        startActivity(new Intent(PostDetailActivity.this, PostActivity.class));
+//    }
 
 
 
