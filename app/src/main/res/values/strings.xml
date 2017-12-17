@@ -28,6 +28,7 @@
     <string name="heading_daily_notes">Daily Notes</string>
     <string name="heading_user_account">User Account</string>
     <string name="heading_contacts">Contacts</string>
+    <string name="heading_notes">Notes</string>
     <string name="post_image">Post Image</string>
     <string name="quickstart_message">Click the SUBSCRIBE button to receive push notifications and set your local tag.</string>
     <string name="subscribe_to_news">Subscribe</string>

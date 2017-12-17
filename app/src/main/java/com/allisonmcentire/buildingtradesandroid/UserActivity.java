@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -48,6 +49,8 @@ public class UserActivity extends BaseActivity {
     public String tag;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
+    boolean success = false;
+    Button subscribeButton;
 
 
     private static final int PREFERENCE_MODE_PRIVATE = 0;
@@ -124,10 +127,15 @@ public class UserActivity extends BaseActivity {
         }
         // [END handle_data_extras]
 
-        Button subscribeButton = findViewById(R.id.subscribeButton);
-        subscribeButton.setOnClickListener(new View.OnClickListener() {
+        final Button subscribeBtn = findViewById(R.id.subscribeButton);
+        subscribeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
+
                 // [START subscribe_topics]
                 //mTag = mLocaltag.getText().toString();
 
@@ -152,6 +160,7 @@ public class UserActivity extends BaseActivity {
                     String msg = getString(R.string.msg_subscribed);
                     Log.d(TAG, msg);
                     Toast.makeText(UserActivity.this, msg+ " to "+ tag, Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(UserActivity.this, "An error occured. Please check your network connection and try again.", Toast.LENGTH_SHORT).show();
 
@@ -180,11 +189,14 @@ public class UserActivity extends BaseActivity {
 
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
 
 
@@ -227,6 +239,22 @@ public class UserActivity extends BaseActivity {
         return tag;
 
     }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
 

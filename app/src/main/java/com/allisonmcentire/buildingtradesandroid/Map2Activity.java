@@ -107,29 +107,29 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
 
         // Initializing a String Array
         String[] plants = new String[]{
-                "SBT",
-                "Asbestos Workers Local 7",
-                "Boilermakers Local 502",
-                "BAC Pacific Northwest ADC",
-                "Carpet, Lino. & Soft Tile Layers Local 1238",
-                "Cement Masons and Plasterers Local 528",
-                "Electrical Workers Local 46",
-                "Elevator Constructors Local 19",
-                "Glaziers Local 188",
-                "Iron Workers Local 86",
-                "Laborers Local 242",
-                "Laborers Local 440",
-                "IUPAT Local 300",
-                "IUPAT Local 1964",
-                "Plumbers & Pipefitters Local 32",
-                "Roofers Local 54",
-                "Sheet Metal Workers Local 66",
-                "Sign Painters Local 1094",
-                "Sprinkler Fitters Local 699",
-                "Teamsters Local 174",
-                "Laborers District Council",
-                "IUPAT District Council 5",
-                "Operating Engineers Local 302"
+                "SeattleBuildingTrades",
+                "AsbestosWorkersLocal 7",
+                "BoilermakersLocal502",
+                "BACPacificNorthwestADC",
+                "Carpet,Lino.&SoftTileLayersLocal1238",
+                "CementMasonsandPlasterersLocal528",
+                "ElectricalWorkersLocal46",
+                "ElevatorConstructorsLocal19",
+                "GlaziersLocal188",
+                "IronWorkersLocal86",
+                "LaborersLocal242",
+                "LaborersLocal440",
+                "IUPATLocal300",
+                "IUPATLocal1964",
+                "Plumbers&PipefittersLocal32",
+                "RoofersLocal54",
+                "SheetMetalWorkersLocal66",
+                "SignPaintersLocal1094",
+                "SprinklerFittersLocal699",
+                "TeamstersLocal174",
+                "LaborersDistrictCouncil",
+                "IUPATDistrictCouncil5",
+                "OperatingEngineersLocal302"
         };
 
         final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
@@ -144,11 +144,11 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
                 TextView tv = (TextView) view;
                 if(position%2 == 1) {
                     // Set the item background color
-                    tv.setBackgroundColor(Color.parseColor("#D8204B"));
+                    tv.setBackgroundColor(Color.parseColor("#eeeeee"));
                 }
                 else {
                     // Set the alternate item background color
-                    tv.setBackgroundColor(Color.parseColor("#D82040"));
+                    tv.setBackgroundColor(Color.parseColor("#dddddd"));
                 }
                 return view;
             }
