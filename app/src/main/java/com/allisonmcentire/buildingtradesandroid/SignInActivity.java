@@ -3,6 +3,7 @@ package com.allisonmcentire.buildingtradesandroid;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by allisonmcentire on 11/26/17.
  */
 
-public class SignInActivity extends BaseActivity implements View.OnClickListener{
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "SignInActivity";
 
@@ -74,7 +75,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             return;
         }
 
-        showProgressDialog();
+       // showProgressDialog();
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
@@ -83,7 +84,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signIn:onComplete:" + task.isSuccessful());
-                        hideProgressDialog();
+                       // hideProgressDialog();
 
                         if (task.isSuccessful()) {
                             onAuthSuccess(task.getResult().getUser());

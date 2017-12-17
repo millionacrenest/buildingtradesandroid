@@ -1,7 +1,12 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,11 +26,11 @@ import com.squareup.picasso.Picasso;
 public class BaseActivity extends AppBaseActivity {
 
     private ProgressDialog mProgressDialog;
-    public String mTag;
     private static FirebaseDatabase mDatabase;
     public String uid;
-
-
+    public String tag;
+    private DatabaseReference mPostReference;
+    private ValueEventListener mPostListener;
 
 
 
@@ -57,28 +62,33 @@ public class BaseActivity extends AppBaseActivity {
     public String getUserID() {
 //        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 //        return String.valueOf(currentFirebaseUser.getUid());
-
+//
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = null;
 
         if (user != null) {
-            // Name, email address, and profile photo Url
-//            String name = user.getDisplayName();
-//            String email = user.getEmail();
-//            Uri photoUrl = user.getPhotoUrl();
-//
-//            // Check if user's email is verified
-//            boolean emailVerified = user.isEmailVerified();
 
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getToken() instead.
+
             uid = user.getUid();
+
 
         }
         return uid;
 
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

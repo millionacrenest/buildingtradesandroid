@@ -33,8 +33,12 @@
         android:id="@+id/nav_website"
         android:title="Website" />
         <item
+            android:id="@+id/nav_notes"
+            android:title="Notes" />
+        <item
             android:id="@+id/nav_manage"
             android:title="User Account" />
+
     </group>
 
 

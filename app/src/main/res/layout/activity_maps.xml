@@ -33,5 +33,10 @@
         android:clickable="true"
         android:src="@drawable/ic_menu_manage"
         android:rotation="0" />
+    <TextView
+        android:id="@+id/userLocaltag2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
 </RelativeLayout>

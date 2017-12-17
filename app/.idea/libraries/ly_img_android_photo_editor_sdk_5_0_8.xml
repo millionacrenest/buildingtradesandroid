@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="ly.img.android:photo-editor-sdk-5.0.8">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/photo-editor-sdk-5.0.8.aar/ebb0ff1491b7cf5a6867abbc7ba2c8bf/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/photo-editor-sdk-5.0.8.aar/ebb0ff1491b7cf5a6867abbc7ba2c8bf/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

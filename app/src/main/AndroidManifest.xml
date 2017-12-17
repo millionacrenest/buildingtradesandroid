@@ -32,7 +32,6 @@
         android:roundIcon="@mipmap/ic_launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -44,8 +43,9 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyARhGN-FZ8UcOKMhKW74_oV-wRt6oa7CfU" />
 
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -92,7 +92,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PostDetailActivity" />
-        <activity android:name=".FrontpageActivity"></activity>
+        <activity android:name=".FrontpageActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".MapDetailActivity" />
         <activity android:name=".Map2Activity" />
@@ -103,7 +103,11 @@
         <activity android:name=".VideoActivity" />
         <activity android:name=".WebsiteActivity" />
         <activity android:name=".FacebookActivity" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".MapCommentsActivity" />
+        <activity android:name=".TestActivity" />
+        <activity android:name=".NotesActivity"></activity>
+        <activity android:name=".Notes2Activity"></activity>
     </application>
 
 </manifest>

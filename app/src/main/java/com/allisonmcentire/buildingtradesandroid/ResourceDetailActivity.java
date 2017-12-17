@@ -1,14 +1,21 @@
 package com.allisonmcentire.buildingtradesandroid;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -30,6 +37,8 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 /**
  * Created by allisonmcentire on 12/4/17.
@@ -57,6 +66,8 @@ public class ResourceDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resource_detail);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String tag = settings.getString("tag", "null");
 
         // Get post key from intent
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
@@ -66,7 +77,7 @@ public class ResourceDetailActivity extends BaseActivity {
 
 //        // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
-                .child("resources").child(mPostKey);
+                .child("resources").child(tag).child(mPostKey);
 
         mPDFView = findViewById(R.id.pdfViewHere);
 //
@@ -108,7 +119,8 @@ public class ResourceDetailActivity extends BaseActivity {
 
                 Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
                 pdfIntent.setDataAndType(uri, "application/pdf");
-                pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                pdfIntent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
 
                 try{
                     startActivity(pdfIntent);
@@ -160,13 +172,6 @@ public class ResourceDetailActivity extends BaseActivity {
 
 
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        startActivity(new Intent(ResourceDetailActivity.this, ResourceActivity.class));
     }
 
 

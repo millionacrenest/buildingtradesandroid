@@ -34,6 +34,18 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="115dp" />
 
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_margin="30dp"-->
+        <!--android:background="@android:color/transparent"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@drawable/ic_menu_manage"-->
+        <!--android:rotation="0" />-->
     <LinearLayout
         android:id="@+id/comment_form2"
         android:layout_width="match_parent"

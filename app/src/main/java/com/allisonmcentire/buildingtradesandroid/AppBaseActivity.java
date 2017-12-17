@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
@@ -27,6 +28,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.app_base_layout);// The base layout that contains your navigation drawer.
         view_stub = (FrameLayout) findViewById(R.id.view_stub);
@@ -130,7 +134,12 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
             case R.id.nav_website:
                 startActivity(new Intent(AppBaseActivity.this, WebsiteActivity.class));
                 break;
+            case R.id.nav_notes:
+                startActivity(new Intent(AppBaseActivity.this, NotesActivity.class));
+                break;
         }
         return false;
     }
+
+
 }

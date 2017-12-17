@@ -3,8 +3,10 @@ package com.allisonmcentire.buildingtradesandroid;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -54,7 +56,8 @@ public class VideoDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_detail);
-
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        String tag = settings.getString("tag", "null");
         // Get post key from intent
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
         if (mPostKey == null) {
@@ -63,7 +66,7 @@ public class VideoDetailActivity extends BaseActivity {
 
         // Initialize Database
         mPostReference = FirebaseDatabase.getInstance().getReference()
-                .child("video").child(mPostKey);
+                .child("videos").child(tag).child(mPostKey);
 
 
         // Initialize Views
@@ -107,8 +110,9 @@ public class VideoDetailActivity extends BaseActivity {
 
                 try{
                     startActivity(videoIntent);
+                    finish();
                 }catch(ActivityNotFoundException e){
-                    Toast.makeText(VideoDetailActivity.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VideoDetailActivity.this, "Error: Please check your connection and try again.", Toast.LENGTH_SHORT).show();
                 }
             }
 

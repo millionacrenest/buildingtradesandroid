@@ -1,9 +1,14 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Map2Activity extends BaseActivity implements View.OnClickListener{
     private Button fab;
@@ -34,6 +43,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
     private ValueEventListener mSiteListener;
     private String thisImage;
     TextView mImageLink;
+    private String mLocalTag;
 
 
     @Override
@@ -41,6 +51,8 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map2);
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        tag = settings.getString("tag", "null");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCam);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +66,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
         });
 
         // Initialize Database
-        mSiteReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations").child("SeattleBT");
+        mSiteReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations");
 
 
         locLatitude=(TextView)findViewById(R.id.location);
@@ -89,6 +101,76 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
 //                }
 //            }
 //        });
+
+        // Get reference of widgets from XML layout
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+        // Initializing a String Array
+        String[] plants = new String[]{
+                "SBT",
+                "Asbestos Workers Local 7",
+                "Boilermakers Local 502",
+                "BAC Pacific Northwest ADC",
+                "Carpet, Lino. & Soft Tile Layers Local 1238",
+                "Cement Masons and Plasterers Local 528",
+                "Electrical Workers Local 46",
+                "Elevator Constructors Local 19",
+                "Glaziers Local 188",
+                "Iron Workers Local 86",
+                "Laborers Local 242",
+                "Laborers Local 440",
+                "IUPAT Local 300",
+                "IUPAT Local 1964",
+                "Plumbers & Pipefitters Local 32",
+                "Roofers Local 54",
+                "Sheet Metal Workers Local 66",
+                "Sign Painters Local 1094",
+                "Sprinkler Fitters Local 699",
+                "Teamsters Local 174",
+                "Laborers District Council",
+                "IUPAT District Council 5",
+                "Operating Engineers Local 302"
+        };
+
+        final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
+
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item,plantsList){
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if(position%2 == 1) {
+                    // Set the item background color
+                    tv.setBackgroundColor(Color.parseColor("#D8204B"));
+                }
+                else {
+                    // Set the alternate item background color
+                    tv.setBackgroundColor(Color.parseColor("#D82040"));
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mLocalTag = (String) parent.getItemAtPosition(position);
+                // Notify the selected item text
+                Toast.makeText
+                        (getApplicationContext(), "Selected : " + mLocalTag, Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -158,7 +240,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
 
     private void postSite() {
 
-        FirebaseDatabase.getInstance().getReference().child("nodeLocations").child("SeattleBT").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("nodeLocations").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -171,8 +253,9 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
 
                         // Create new comment object
                         String locationNotes = mSiteField.getText().toString();
-                        String localtag = "SeattleBT";
-                        String sharedWith = "SeattleBT";
+                        String localtag = mLocalTag;
+
+
 
                         String image = mImageLink.getText().toString();
 
@@ -180,10 +263,11 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
                         Double longitude = Double.parseDouble(locLongitude.getText().toString());
 
                                 //String image = mImageUrl.getText().toString();
-                        userInformation = new UserInformation(name,latitude,longitude,locationNotes,localtag,image,sharedWith,uid);
+                        userInformation = new UserInformation(name,latitude,longitude,locationNotes,localtag,image,tag,uid);
 
                         // Push the comment, it will appear in the list
-                        mSiteReference.push().setValue(userInformation);
+                        mSiteReference.child(mLocalTag).push().setValue(userInformation);
+                        mSiteReference.child(tag).push().setValue(userInformation);
                        // display toast
 
                     }

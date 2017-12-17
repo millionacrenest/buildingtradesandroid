@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class FrontpageActivity extends BaseActivity {
 
@@ -20,6 +22,7 @@ public class FrontpageActivity extends BaseActivity {
 
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
+
 
 
 

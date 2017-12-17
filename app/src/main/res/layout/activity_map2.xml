@@ -49,15 +49,6 @@
         android:layout_marginTop="23dp"
         android:hint="Location notes..."
         android:maxLines="1" />
-
-    <!--<Spinner-->
-        <!--android:id="@+id/spinner1"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:background="@android:drawable/btn_dropdown"-->
-        <!--android:spinnerMode="dropdown" />-->
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
@@ -72,10 +63,20 @@
         android:textColor="#ffffff"/>
 
     <TextView
+        android:id="@+id/imageLink"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_toEndOf="@+id/location2"
+        android:textColor="#ffffff" />
+
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageLink"
-        android:textColor="#ffffff"/>
+        android:layout_below="@+id/field_location_text2"
+        android:layout_marginTop="26dp"
+        android:layout_toEndOf="@+id/location2"
+        android:spinnerMode="dialog" />
 
     <Button
         android:id="@+id/button_post_site2"

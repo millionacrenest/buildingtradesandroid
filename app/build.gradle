@@ -8,10 +8,10 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.allisonmcentire.buildingtradesandroid"
-        minSdkVersion 17
+        minSdkVersion 15
         targetSdkVersion 26
-        versionCode 8
-        versionName "8.0"
+        versionCode 14
+        versionName "14.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
@@ -61,14 +61,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-
-
-
-
-
-
-
 
 
 apply plugin: 'com.google.gms.google-services'
