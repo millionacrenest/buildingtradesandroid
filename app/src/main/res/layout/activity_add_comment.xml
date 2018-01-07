@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.allisonmcentire.buildingtradesandroid.AddCommentActivity">
+
+
+    <LinearLayout
+        android:id="@+id/comment_form2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/post_title2"
+        android:layout_marginTop="20dp"
+        android:weightSum="1.0">
+
+        <EditText
+        android:id="@+id/field_comment_text2"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:hint="Write a comment..."/>
+
+        <Button
+        android:id="@+id/button_post_comment2"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content"
+        android:text="Post"/>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

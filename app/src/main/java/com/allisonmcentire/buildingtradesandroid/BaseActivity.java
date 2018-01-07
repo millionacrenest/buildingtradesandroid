@@ -1,7 +1,9 @@
 package com.allisonmcentire.buildingtradesandroid;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -29,6 +31,7 @@ public class BaseActivity extends AppBaseActivity {
     private static FirebaseDatabase mDatabase;
     public String uid;
     public String tag;
+    public String name;
     private DatabaseReference mPostReference;
     private ValueEventListener mPostListener;
 
@@ -66,25 +69,19 @@ public class BaseActivity extends AppBaseActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = null;
 
+
         if (user != null) {
 
 
             uid = user.getUid();
 
 
+
+
         }
         return uid;
 
     }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -44,6 +44,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
     private String thisImage;
     TextView mImageLink;
     private String mLocalTag;
+    private String tag;
 
 
     @Override
@@ -52,7 +53,8 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_map2);
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        tag = settings.getString("tag", "null");
+        //tag = settings.getString("tag", "null");
+        tag = "SeattleBuidingTrades";
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCam);
         fab.setOnClickListener(new View.OnClickListener() {

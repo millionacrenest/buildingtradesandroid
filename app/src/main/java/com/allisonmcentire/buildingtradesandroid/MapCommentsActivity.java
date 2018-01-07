@@ -96,11 +96,12 @@ public class MapCommentsActivity extends BaseActivity implements View.OnClickLis
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get user information
                         User user = dataSnapshot.getValue(User.class);
-                        //   String authorName = user.field_full_name;
+                           String authorName = user.field_full_name;
+                        String commentImage = "http://lorempixel.com/400/200/sports/";
 
                         // Create new comment object
                         String commentText = mCommentField.getText().toString();
-                        Comment comment = new Comment(commentText);
+                        Comment comment = new Comment(commentText,authorName,commentImage);
 
                         // Push the comment, it will appear in the list
                         mCommentsReference.push().setValue(comment);

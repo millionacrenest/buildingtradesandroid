@@ -31,7 +31,8 @@ public class WebsiteActivity extends BaseActivity {
       //  mWebView = findViewById(R.id.myWebViewer3);
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        tag = settings.getString("tag", "null");
+        //tag = settings.getString("tag", "null");
+        String tag = "SeattleBT";
 
         mUsers = FirebaseDatabase.getInstance().getReference("settings").child(tag);
 

@@ -47,6 +47,7 @@ public class UserActivity extends BaseActivity {
     private ValueEventListener mPostListener;
     public String uid;
     public String tag;
+    public String name;
     private SharedPreferences preferenceSettings;
     private SharedPreferences.Editor preferenceEditor;
     boolean success = false;
@@ -64,7 +65,9 @@ public class UserActivity extends BaseActivity {
         mLocaltag = findViewById(R.id.userLocaltag);
         mEmail = findViewById(R.id.userEmail);
         uid = getUserID();
-        tag = getTag();
+        getTag();
+    //    name = getName();
+
 
 
 
@@ -75,7 +78,7 @@ public class UserActivity extends BaseActivity {
        // mPostReference = FirebaseDatabase.getInstance().getReference().child("ids").child(uid);
 
 
-       // Toast.makeText(UserActivity.this, mTag, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -141,17 +144,14 @@ public class UserActivity extends BaseActivity {
 
                 if (tag != null) {
 
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserActivity.this);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString("tag", tag);
 
-
-                    editor.apply();
 
 
                     FirebaseMessaging.getInstance().subscribeToTopic("all");
                     FirebaseMessaging.getInstance().subscribeToTopic(tag);
                     FirebaseMessaging.getInstance().subscribeToTopic(uid);
+                  //  FirebaseMessaging.getInstance().subscribeToTopic(name);
+                   // Toast.makeText(UserActivity.this, tag, Toast.LENGTH_SHORT).show();
 
 
                     // [END subscribe_topics]
@@ -200,7 +200,25 @@ public class UserActivity extends BaseActivity {
 
 
 
-    public String getTag() {
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    public void getTag() {
 
         getUserID();
 
@@ -216,6 +234,17 @@ public class UserActivity extends BaseActivity {
                     // [START_EXCLUDE]
 
                     tag = user.localtag;
+                    name = user.name;
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserActivity.this);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("tag", tag);
+                    editor.putString("name", name);
+
+                    //  editor.putString("name", name);
+
+
+                    editor.apply();
 
 
                 }
@@ -236,27 +265,50 @@ public class UserActivity extends BaseActivity {
 
         }
 
-        return tag;
+       // return tag;
 
     }
 
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int i = item.getItemId();
-        if (i == R.id.action_logout) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-
+//    public String getName() {
+//
+//        getUserID();
+//
+//        if (uid != null) {
+//
+//
+//            mPostReference = FirebaseDatabase.getInstance().getReference().child("ids").child(uid);
+//            ValueEventListener postListener = new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    // Get Post object and use the values to update the UI
+//                    User user = dataSnapshot.getValue(User.class);
+//                    // [START_EXCLUDE]
+//
+//                    name = user.name;
+//
+//
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                    // Getting Post failed, log a message
+//
+//                    // [END_EXCLUDE]
+//                }
+//            };
+//            mPostReference.addValueEventListener(postListener);
+//            // [END post_value_event_listener]
+//
+//            // Keep copy of post listener so we can remove it when app stops
+//            mPostListener = postListener;
+//
+//
+//        }
+//
+//        return name;
+//
+//    }
 
 
 
