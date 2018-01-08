@@ -89,7 +89,7 @@ public class MapCommentsActivity extends BaseActivity implements View.OnClickLis
 
 
     private void postComment() {
-        // final String uid = getUid();
+         final String uid = getUserID();
         FirebaseDatabase.getInstance().getReference().child("users")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -101,7 +101,7 @@ public class MapCommentsActivity extends BaseActivity implements View.OnClickLis
 
                         // Create new comment object
                         String commentText = mCommentField.getText().toString();
-                        Comment comment = new Comment(commentText,authorName,commentImage);
+                        Comment comment = new Comment(commentText,authorName,commentImage,uid);
 
                         // Push the comment, it will appear in the list
                         mCommentsReference.push().setValue(comment);

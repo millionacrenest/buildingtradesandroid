@@ -12,7 +12,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MapsActivity">
+
 
     <fragment
         android:id="@+id/map"
@@ -25,14 +27,19 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="30dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:src="@drawable/ic_menu_manage"
-        android:rotation="0" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+
+    <!--android:layout_margin="30dp"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:clickable="true"-->
+    <!--android:src="@drawable/imgly_icon_add"-->
+    <!--android:rotation="0" />-->
     <TextView
         android:id="@+id/userLocaltag2"
         android:layout_width="wrap_content"

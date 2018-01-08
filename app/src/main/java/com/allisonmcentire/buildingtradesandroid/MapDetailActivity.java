@@ -1,5 +1,6 @@
 package com.allisonmcentire.buildingtradesandroid;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,6 +48,7 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
     private TextView mLocalView;
     private TextView mUserNameView;
     private ImageView mCommentImage;
+    private TextView mImageCommentLink;
     private ImageView mImageView;
     private String imgURL;
     Context context=this;
@@ -56,7 +58,7 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
     String mAuthorEmail;
     String mAuthorTag;
 //
-//    private Button fab2;
+    private Button fab2;
     private DatabaseReference mCommentsReference;
     private DatabaseReference mUserReference;
     private CommentAdapter mAdapter;
@@ -122,13 +124,17 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
         mCommentButton.setOnClickListener(this);
         mCommentsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
+
+
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fabCommentPhoto);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Click action
-                Intent intent = new Intent(MapDetailActivity.this, CameraActivity.class);
+                Intent intent = new Intent(MapDetailActivity.this, CameraCommentActivity.class);
+                intent.putExtra("EXTRA_POST_KEY", sitekey);
                 startActivity(intent);
+
             }
         });
 
@@ -176,9 +182,12 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
         // Keep copy of post listener so we can remove it when app stops
         mMapListener = mapListener;
 
+
+
        //  Listen for comments
         mAdapter = new CommentAdapter(this, mCommentsReference);
         mCommentsRecycler.setAdapter(mAdapter);
+
 
     }
 
@@ -224,19 +233,21 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
                         // Get user information
 
 
-
-                        String commentImage = "http://lorempixel.com/400/200/sports/";
+                        String commentImage = getImageUrl();
                         // Create new comment object
                         String commentText = mCommentField.getText().toString();
                         String mAuthorName = mUserNameView.getText().toString();
+                        String mUID = getUserID();
 
 
 
 
-                        Comment comment = new Comment(commentText,mAuthorName,commentImage);
-
+                        Comment comment = new Comment(commentText,mAuthorName,commentImage,mUID);
+                        String uid = getUserID();
                         // Push the comment, it will appear in the list
                         mCommentsReference.push().setValue(comment);
+                        mUserReference = FirebaseDatabase.getInstance().getReference().child("ids");
+                        mUserReference.child(uid).child("comment").push().setValue(comment);
 
                         // Clear the field
                         mCommentField.setText(null);
@@ -264,7 +275,10 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
             authorView = itemView.findViewById(R.id.comment_author);
             bodyView = itemView.findViewById(R.id.comment_body);
             commentImageView = itemView.findViewById(R.id.comment_photo);
+
+
         }
+
     }
 
     private class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
@@ -379,6 +393,9 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
 
         @Override
         public void onBindViewHolder(CommentViewHolder holder, int position) {
+
+
+
             Comment comment = mComments.get(position);
               holder.authorView.setText(comment.author);
             holder.bodyView.setText(comment.text);
@@ -390,6 +407,8 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
                     .load(comment.commentImage)
                     .placeholder(R.mipmap.ic_launcher)
                     .into(holder.commentImageView);
+
+
 
         }
 
@@ -417,6 +436,22 @@ public class MapDetailActivity extends BaseActivity implements View.OnClickListe
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+
+
+    public String getImageUrl() {
+        String image = (String) getIntent().getStringExtra("Image Comment URL");
+//        if (image != null) {
+//            Picasso.with(this)
+//                    .load(image)
+//                    .placeholder(R.drawable.ic_menu_gallery) //optional
+//                    .centerCrop()                        //optional
+//                    .into(mImageView);
+//        } else {
+//            //do nothing
+//        }
+        return String.valueOf(image);
     }
 
 

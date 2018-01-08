@@ -22,7 +22,7 @@ public class NotesActivity extends BaseActivity implements View.OnClickListener{
     private ChildEventListener mChildEventListener;
     private FragmentPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
-    private Button fabN;
+
 
 
     @Override
@@ -31,15 +31,15 @@ public class NotesActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_notes);
 
         ChildEventListener mChildEventListener;
-//        FloatingActionButton fabN = (FloatingActionButton) findViewById(R.id.fabAddNotes);
-//        fabN.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // Click action
-//                Intent intent = new Intent(NotesActivity.this, Notes2Activity.class);
-//                startActivity(intent);
-//            }
-//        });
+        FloatingActionButton fabN = (FloatingActionButton) findViewById(R.id.fabAddNotes);
+        fabN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Click action
+                Intent intent = new Intent(NotesActivity.this, Notes2Activity.class);
+                startActivity(intent);
+            }
+        });
 
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {

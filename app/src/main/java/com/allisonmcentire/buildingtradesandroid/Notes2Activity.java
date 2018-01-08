@@ -26,6 +26,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by allisonmcentire on 12/16/17.
  */
@@ -36,7 +39,6 @@ public class Notes2Activity extends BaseActivity implements View.OnClickListener
     Button mSaveButton;
     String title;
     String body;
-    String field_uid;
     String notesImage;
     private DatabaseReference mNotesReference;
     private ValueEventListener mSiteListener;
@@ -52,7 +54,7 @@ public class Notes2Activity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes2);
-        String uid = getUserID();
+        uid = getUserID();
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabCamNotes);
@@ -60,10 +62,10 @@ public class Notes2Activity extends BaseActivity implements View.OnClickListener
             @Override
             public void onClick(View view) {
                 // Click action
-                showPictureDialog();
-//                Intent intent = new Intent(Notes2Activity.this, CameraActivity.class);
-//                startActivity(intent);
-//                finish();
+
+                Intent intent = new Intent(Notes2Activity.this, CameraNotesActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -100,17 +102,40 @@ public class Notes2Activity extends BaseActivity implements View.OnClickListener
     }
 
     private void postNote() {
-        title = mNoteTitle.getText().toString();
-        body = mNoteBody.getText().toString();
-        field_uid = getUserID();
-        notesImage = getImageUrl();
+//        title = mNoteTitle.getText().toString();
+//        body = mNoteBody.getText().toString();
+//        field_uid = getUserID();
+//        notesImage = getImageUrl();
+//
+//            Notes notes = new Notes(title, body);
+//
+//
+//
+//            mNotesReference.child(field_uid).push().setValue(notes);
+        FirebaseDatabase.getInstance().getReference().child("notes").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // Get user information
 
-            Notes notes = new Notes(title, body);
 
+                        // Get Post object and use the values to update the UI
+                        Notes notes = dataSnapshot.getValue(Notes.class);
+                        // [START_EXCLUDE]
+                        String title = mNoteTitle.getText().toString();
+                        String body = mNoteBody.getText().toString();
 
+                        Date currentTime = Calendar.getInstance().getTime();
 
-            mNotesReference.child(field_uid).push().setValue(notes);
+                        notes = new Notes (title,body,uid,notesImage,currentTime);
+                        mNotesReference.child(uid).push().setValue(notes);
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
 //        ValueEventListener siteListener = new ValueEventListener() {
@@ -121,11 +146,11 @@ public class Notes2Activity extends BaseActivity implements View.OnClickListener
 //                // [START_EXCLUDE]
 //                String title = mNoteTitle.getText().toString();
 //                String body = mNoteBody.getText().toString();
-//                String field_uid = getUserID();
 //
+//                Date currentTime = Calendar.getInstance().getTime();
 //
-//                notes = new Notes (title,body,field_uid);
-//                mNotesReference.child(field_uid).push().setValue(notes);
+//                notes = new Notes (title,body,uid,notesImage,currentTime);
+//                mNotesReference.child(uid).push().setValue(notes);
 //
 //                // [END_EXCLUDE]
 //            }

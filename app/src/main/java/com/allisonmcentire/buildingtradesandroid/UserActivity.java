@@ -8,6 +8,10 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +56,8 @@ public class UserActivity extends BaseActivity {
     private SharedPreferences.Editor preferenceEditor;
     boolean success = false;
     Button subscribeButton;
-
+    private FragmentPagerAdapter mPagerAdapter;
+    private ViewPager mViewPager;
 
     private static final int PREFERENCE_MODE_PRIVATE = 0;
 
@@ -67,6 +72,35 @@ public class UserActivity extends BaseActivity {
         uid = getUserID();
         getTag();
     //    name = getName();
+
+        // Create the adapter that will return a fragment for each section
+        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private final Fragment[] mFragments = new Fragment[] {
+                    new UsersFragment(),
+
+            };
+            private final String[] mFragmentNames = new String[] {
+                    getString(R.string.heading_user_posts)
+            };
+            @Override
+            public Fragment getItem(int position) {
+                return mFragments[position];
+            }
+            @Override
+            public int getCount() {
+                return mFragments.length;
+            }
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mFragmentNames[position];
+            }
+        };
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(mPagerAdapter);
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
 
 
@@ -236,10 +270,12 @@ public class UserActivity extends BaseActivity {
                     tag = user.localtag;
                     name = user.name;
 
+
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(UserActivity.this);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("tag", tag);
                     editor.putString("name", name);
+                    editor.putString("uid", uid);
 
                     //  editor.putString("name", name);
 

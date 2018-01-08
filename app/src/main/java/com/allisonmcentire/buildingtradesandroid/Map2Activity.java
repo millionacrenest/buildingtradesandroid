@@ -40,6 +40,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
     LocationTracker tracker;
     double latitude=0.0d,longitude=0.0d;
     private DatabaseReference mSiteReference;
+    private DatabaseReference mUserReference;
     private ValueEventListener mSiteListener;
     private String thisImage;
     TextView mImageLink;
@@ -69,6 +70,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
 
         // Initialize Database
         mSiteReference = FirebaseDatabase.getInstance().getReference().child("nodeLocations");
+        mUserReference = FirebaseDatabase.getInstance().getReference().child("ids");
 
 
         locLatitude=(TextView)findViewById(R.id.location);
@@ -270,6 +272,7 @@ public class Map2Activity extends BaseActivity implements View.OnClickListener{
                         // Push the comment, it will appear in the list
                         mSiteReference.child(mLocalTag).push().setValue(userInformation);
                         mSiteReference.child(tag).push().setValue(userInformation);
+                        mUserReference.child(uid).child("nodeLocations").push().setValue(userInformation);
                        // display toast
 
                     }

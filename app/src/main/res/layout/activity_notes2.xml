@@ -51,7 +51,8 @@
         android:rotation="0"
         android:src="@drawable/ic_menu_camera"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="16dp" />
 
     <Button
         android:id="@+id/buttonNoteSave"
