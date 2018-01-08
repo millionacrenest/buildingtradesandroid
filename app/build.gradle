@@ -10,8 +10,8 @@ android {
         applicationId "com.allisonmcentire.buildingtradesandroid"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 18
-        versionName "18.0"
+        versionCode 19
+        versionName "19.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true

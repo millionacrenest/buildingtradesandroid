@@ -31,7 +31,7 @@ public class UserPostsViewHolder extends RecyclerView.ViewHolder {
 
     public void bindToPost(UserInformation userPosts, View.OnClickListener starClickListener) {
 
-        titleTextView.setText(userPosts.name);
+        titleTextView.setText(userPosts.name + "\n" + userPosts.locationNotes);
 
 
 //        pdfLink.setText(resource.field_document_file);
